@@ -13,3 +13,7 @@ py-spy = "==0.3.14"
 
 [requires]
 python_version = "3.11"
+
+[scripts]
+test = "pytest --spec"
+lint = "pylint --rcfile .pylintrc **/*.py"
