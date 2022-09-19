@@ -1,0 +1,12 @@
+[MAIN]
+ignore-patterns=.*?_testo.py
+init-hook="import sys; sys.path.append('.')"
+
+[FORMAT]
+indent-string='  '
+indent-after-paren=4
+good-names=x,y,z,w,i,j,t,xs
+max-line-length=160
+
+[MESSAGES CONTROL]
+disable=similarities, C0103
