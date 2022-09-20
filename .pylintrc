@@ -8,4 +8,4 @@ good-names=x,y,z,w,i,j,t,xs
 max-line-length=160
 
 [MESSAGES CONTROL]
-disable=similarities, C0103
+disable=similarities, C0103, R0904, R0903, R0913, R0914
