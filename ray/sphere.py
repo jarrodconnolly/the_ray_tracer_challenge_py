@@ -1,7 +1,7 @@
 """
 Sphere module
 """
-from typing import Self
+from __future__ import annotations
 import math
 from .ray import Ray
 from .tuple import Point, Vector
@@ -16,7 +16,7 @@ class Sphere:
   def __init__(
     self,
     transform: Matrix = Matrix.identity(),
-    material: Material = Material()) -> Self:
+    material: Material = Material()) -> Sphere:
     self.transform = transform
     self.material = material
 

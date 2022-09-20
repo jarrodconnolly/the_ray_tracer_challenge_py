@@ -1,7 +1,7 @@
 """
 Canvas module
 """
-from typing import Self
+from __future__ import annotations
 from io import StringIO
 from .colour import Colour
 
@@ -9,7 +9,7 @@ class Canvas:
   """
   Canvas
   """
-  def __init__(self, width: int, height: int) -> Self:
+  def __init__(self, width: int, height: int) -> Canvas:
     self.width = width
     self.height = height
     colour = Colour(0, 0, 0)

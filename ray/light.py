@@ -1,7 +1,7 @@
 """
 Light module
 """
-from typing import Self
+from __future__ import annotations
 from .tuple import Point
 from .colour import Colour
 
@@ -9,6 +9,6 @@ class PointLight:
   """
   PointLight
   """
-  def __init__(self, position: Point, intensity: Colour) -> Self:
+  def __init__(self, position: Point, intensity: Colour) -> PointLight:
     self.position = position
     self.intensity = intensity

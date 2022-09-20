@@ -12,8 +12,8 @@ pylint = "==2.15.2"
 py-spy = "==0.3.14"
 
 [requires]
-python_version = "3.11"
+python_full_version = "3.10.7"
 
 [scripts]
 test = "pytest --spec"
-lint = "pylint --rcfile .pylintrc **/*.py"
+lint = "pylint --recursive yes --rcfile .pylintrc ."

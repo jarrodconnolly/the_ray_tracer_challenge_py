@@ -1,19 +1,19 @@
 """
 Colour module
 """
-from typing import Self
+from __future__ import annotations
 import math
 
 class Colour:
   """
   Colours
   """
-  def __init__(self, red: float, green: float, blue: float) -> Self:
+  def __init__(self, red: float, green: float, blue: float) -> Colour:
     self.red = red
     self.green = green
     self.blue = blue
 
-  def __eq__(self, other: Self):
+  def __eq__(self, other: Colour):
     if isinstance(other, Colour):
       if(
         math.isclose(self.red, other.red, abs_tol=1e-05) and
@@ -23,19 +23,19 @@ class Colour:
         return True
     return False
 
-  def __add__(self, other: Self):
+  def __add__(self, other: Colour):
     return Colour(
       self.red + other.red,
       self.green + other.green,
       self.blue + other.blue)
 
-  def __sub__(self, other: Self):
+  def __sub__(self, other: Colour):
     return Colour(
       self.red - other.red,
       self.green - other.green,
       self.blue - other.blue)
 
-  def __mul__(self, other: int|float|Self):
+  def __mul__(self, other: int|float|Colour):
     if isinstance(other, Colour):
       return Colour(
         self.red * other.red,

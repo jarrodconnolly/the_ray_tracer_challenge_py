@@ -1,7 +1,7 @@
 """
 Material module
 """
-from typing import Self
+from __future__ import annotations
 from .colour import Colour
 from .tuple import Point, Vector
 from .light import PointLight
@@ -16,14 +16,14 @@ class Material:
     ambient: float = 0.1,
     diffuse: float = 0.9,
     specular: float = 0.9,
-    shininess: float = 200.0) -> Self:
+    shininess: float = 200.0) -> Material:
     self.colour = colour
     self.ambient = ambient
     self.diffuse = diffuse
     self.specular = specular
     self.shininess = shininess
 
-  def __eq__(self, other: Self):
+  def __eq__(self, other: Material):
     if isinstance(other, Material):
       if(
         self.colour == other.colour and

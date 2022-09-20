@@ -1,7 +1,7 @@
 """
 Matrix module
 """
-from typing import Self
+from __future__ import annotations
 import math
 from .tuple import Tuple
 
@@ -9,7 +9,7 @@ class Matrix:
   """
   Matrix
   """
-  def __init__(self, rows: list) -> Self:
+  def __init__(self, rows: list) -> Matrix:
     self.rows = rows
     self.row_count = len(rows)
     self.column_count = len(rows)
@@ -18,7 +18,7 @@ class Matrix:
   def __getitem__(self, key: int) -> list:
     return self.rows[key]
 
-  def __eq__(self, other: Self) -> bool:
+  def __eq__(self, other: Matrix) -> bool:
     if self.row_count != other.row_count or self.column_count != other.column_count:
       return False
     for i in range(0, self.row_count):
@@ -27,7 +27,7 @@ class Matrix:
           return False
     return True
 
-  def __mul__(self, other: Self|Tuple) -> Self|Tuple:
+  def __mul__(self, other: Matrix|Tuple) -> Matrix|Tuple:
     # return Matrix([[sum(a*b for a,b in zip(X_row, Y_col)) for Y_col in zip(*other)] for X_row in self])
     if isinstance(other, Matrix):
       matrix = Matrix.by_size(self.row_count, self.column_count)
@@ -44,7 +44,7 @@ class Matrix:
 
     raise ValueError("Invalid type to multiply with matrix")
 
-  def transpose(self) -> Self:
+  def transpose(self) -> Matrix:
     """ Tranpose matrix """
     matrix = Matrix.by_size(self.row_count, self.column_count)
     for row in range(0, self.row_count):
@@ -62,7 +62,7 @@ class Matrix:
       det += self[0][col] * self.cofactor(0, col)
     return det
 
-  def submatrix(self, remove_row: int, remove_col: int) -> Self:
+  def submatrix(self, remove_row: int, remove_col: int) -> Matrix:
     """ Get submatrix """
     dest_matrix = Matrix.by_size(self.row_count - 1, self.column_count - 1)
     dest_row = 0
@@ -90,7 +90,7 @@ class Matrix:
       return -minor
     return minor
 
-  def inverse(self) -> Self:
+  def inverse(self) -> Matrix:
     """ Return the inverse """
     if self._inverse is not None:
       return self._inverse
@@ -142,7 +142,7 @@ class Matrix:
     ])
 
   @classmethod
-  def translation(cls, x: float, y: float, z: float) -> Self:
+  def translation(cls, x: float, y: float, z: float) -> Matrix:
     """ Return a translation matrix """
     return Matrix([
       [1,0,0,x],
@@ -152,7 +152,7 @@ class Matrix:
     ])
 
   @classmethod
-  def scaling(cls, x: float, y: float, z: float) -> Self:
+  def scaling(cls, x: float, y: float, z: float) -> Matrix:
     """ Return a scaling matrix """
     return Matrix([
       [x,0,0,0],
@@ -162,7 +162,7 @@ class Matrix:
     ])
 
   @classmethod
-  def rotation_x(cls, radians:float) -> Self:
+  def rotation_x(cls, radians:float) -> Matrix:
     """ Return the X rotation matrix """
     cos_r = math.cos(radians)
     sin_r = math.sin(radians)
@@ -174,7 +174,7 @@ class Matrix:
     ])
 
   @classmethod
-  def rotation_y(cls, radians:float) -> Self:
+  def rotation_y(cls, radians:float) -> Matrix:
     """ Return the Y rotation matrix """
     cos_r = math.cos(radians)
     sin_r = math.sin(radians)
@@ -186,7 +186,7 @@ class Matrix:
     ])
 
   @classmethod
-  def rotation_z(cls, radians:float) -> Self:
+  def rotation_z(cls, radians:float) -> Matrix:
     """ Return the Z rotation matrix """
     cos_r = math.cos(radians)
     sin_r = math.sin(radians)
@@ -198,7 +198,7 @@ class Matrix:
     ])
 
   @classmethod
-  def shearing(cls, x_y, x_z, y_x, y_z, z_x, z_y) -> Self:
+  def shearing(cls, x_y, x_z, y_x, y_z, z_x, z_y) -> Matrix:
     """ Return a scaling matrix """
     return Matrix([
       [1,x_y,x_z,0],

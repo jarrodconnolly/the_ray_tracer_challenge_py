@@ -1,13 +1,13 @@
 """
 Intersection module
 """
-from typing import Self
+from __future__ import annotations
 
 class Intersection:
   """
   Intersection
   """
-  def __init__(self, distance: float, obj: object) -> Self:
+  def __init__(self, distance: float, obj: object) -> Intersection:
     self.t = distance
     self.object = obj
 
