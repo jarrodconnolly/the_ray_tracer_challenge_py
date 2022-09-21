@@ -1,6 +1,10 @@
 """ Putting It Together - Chapter 4 """
 # import math
-import rt as RT
+from rt.canvas import Canvas
+from rt.colour import Colour
+from rt.tuple import Point
+from rt.sphere import Sphere
+from rt.ray import Ray
 
 CANVAS_PIXELS = 128
 WALL_Z = 10
@@ -8,34 +12,34 @@ WALL_SIZE = 7.0
 
 def run():
   """ main entrypoint """
-  canvas = RT.Canvas(CANVAS_PIXELS, CANVAS_PIXELS)
+  canvas = Canvas(CANVAS_PIXELS, CANVAS_PIXELS)
 
-  colour = RT.Colour(1, 0, 0)
+  colour = Colour(1, 0, 0)
 
-  ray_origin = RT.Point(0, 0, -5)
+  ray_origin = Point(0, 0, -5)
 
 
   pixel_size = WALL_SIZE / CANVAS_PIXELS
   half = WALL_SIZE / 2
 
-  shape = RT.Sphere()
+  shape = Sphere()
 
   # shrink y
-  #shape.transform = RT.Matrix.scaling(1, 0.5, 1)
+  #shape.transform = Matrix.scaling(1, 0.5, 1)
   # shrink x
-  #shape.transform = RT.Matrix.scaling(0.5, 1, 1)
+  #shape.transform = Matrix.scaling(0.5, 1, 1)
   # shrink it, and rotate it!
-  #shape.transform = RT.Matrix.rotation_z(math.pi / 4) * RT.Matrix.scaling(0.5, 1, 1)
+  #shape.transform = Matrix.rotation_z(math.pi / 4) * Matrix.scaling(0.5, 1, 1)
   # shrink it, and skew it!
-  #shape.transform = RT.Matrix.shearing(1, 0, 0, 0, 0, 0) * RT.Matrix.scaling(0.5, 1, 1)
+  #shape.transform = Matrix.shearing(1, 0, 0, 0, 0, 0) * Matrix.scaling(0.5, 1, 1)
 
   for y in range(0, CANVAS_PIXELS):
     world_y = half - pixel_size * y
     for x in range(0, CANVAS_PIXELS):
       world_x = -half + pixel_size * x
-      position = RT.Point(world_x, world_y, WALL_Z)
+      position = Point(world_x, world_y, WALL_Z)
 
-      ray = RT.Ray(ray_origin, (position - ray_origin).normalize())
+      ray = Ray(ray_origin, (position - ray_origin).normalize())
       xs = shape.intersect(ray)
 
       if xs.hit() is not None:

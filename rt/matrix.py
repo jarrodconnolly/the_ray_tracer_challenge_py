@@ -3,7 +3,8 @@ Matrix module
 """
 from __future__ import annotations
 import math
-import rt as RT
+from rt.tuple import Tuple
+
 
 class Matrix:
   """
@@ -27,7 +28,7 @@ class Matrix:
           return False
     return True
 
-  def __mul__(self, other: Matrix|RT.Tuple) -> Matrix|RT.Tuple:
+  def __mul__(self, other: Matrix|Tuple) -> Matrix|Tuple:
     if isinstance(other, Matrix):
       matrix = Matrix.by_size(self.row_count, self.column_count)
       for row in range(0, self.row_count):
@@ -35,11 +36,11 @@ class Matrix:
           matrix[row][col] = self[row][0] * other[0][col] + self[row][1] * other[1][col] + self[row][2] * other[2][col] + self[row][3] * other[3][col]
       return matrix
 
-    if isinstance(other, RT.Tuple):
+    if isinstance(other, Tuple):
       tuple_params = []
       for row in range(0, self.row_count):
         tuple_params.append(self[row][0] * other.x + self[row][1] * other.y + self[row][2] * other.z + self[row][3] * other.w)
-      return RT.Tuple(*tuple_params) #pylint: disable = no-value-for-parameter
+      return Tuple(*tuple_params) #pylint: disable = no-value-for-parameter
 
     raise ValueError("Invalid type to multiply with matrix")
 

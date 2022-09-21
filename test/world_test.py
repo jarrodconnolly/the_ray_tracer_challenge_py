@@ -1,31 +1,38 @@
 """ World Tests """
-import rt as RT
+from rt.world import World
+from rt.light import PointLight
+from rt.tuple import Point, Vector
+from rt.colour import Colour
+from rt.sphere import Sphere
+from rt.material import Material
+from rt.matrix import Matrix
+from rt.ray import Ray
 
 class TestWorld:
   """ features/world.feature """
 
   def test_create_world(self):
     """ Creating a world """
-    w = RT.World()
+    w = World()
     assert len(w.objects) == 0
     assert len(w.lights) == 0
 
   def test_default_world(self):
     """ The default world """
-    w = RT.World.DefaultWorld()
-    assert w.lights[0] == RT.PointLight(RT.Point(-10, 10, -10), RT.Colour(1, 1, 1))
+    w = World.DefaultWorld()
+    assert w.lights[0] == PointLight(Point(-10, 10, -10), Colour(1, 1, 1))
 
-    assert w.objects[0] == RT.Sphere(material=RT.Material(
-      colour=RT.Colour(0.8, 1.0, 0.6),
+    assert w.objects[0] == Sphere(material=Material(
+      colour=Colour(0.8, 1.0, 0.6),
       diffuse=0.7,
       specular=0.2))
 
-    assert w.objects[1] == RT.Sphere(transform=RT.Matrix.scaling(0.5, 0.5, 0.5))
+    assert w.objects[1] == Sphere(transform=Matrix.scaling(0.5, 0.5, 0.5))
 
   def test_intersect_world_ray(self):
     """ Intersect a world with a ray """
-    w = RT.World.DefaultWorld()
-    r = RT.Ray(RT.Point(0, 0, -5), RT.Vector(0, 0, 1))
+    w = World.DefaultWorld()
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
     xs = w.intersect(r)
 
     assert len(xs) == 4

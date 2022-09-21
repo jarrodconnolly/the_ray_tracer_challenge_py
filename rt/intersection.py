@@ -2,26 +2,28 @@
 Intersection module
 """
 from __future__ import annotations
-import rt as RT
+from rt.shape import Shape
+from rt.tuple import Point, Vector
+from rt.ray import Ray
 
 class Comps:
   """ Prepared Computations """
   def __init__(self) -> Comps:
     self.t: int = None
-    self.object: RT.Sphere = None
-    self.point: RT.Point = None
-    self.eyev: RT.Vector = None
-    self.normalv: RT.Vector = None
+    self.object: Shape = None
+    self.point: Point = None
+    self.eyev: Vector = None
+    self.normalv: Vector = None
 
 class Intersection:
   """
   Intersection
   """
-  def __init__(self, distance: float, obj: object) -> Intersection:
-    self.t = distance
-    self.object = obj
+  def __init__(self, distance: float, obj: Shape) -> Intersection:
+    self.t: int = distance
+    self.object: Shape = obj
 
-  def prepare_computations(self, ray: RT.Ray) -> Comps:
+  def prepare_computations(self, ray: Ray) -> Comps:
     """ Prepare Computations """
     comps = Comps()
     comps.t = self.t
@@ -35,7 +37,7 @@ class Intersections:
   """
   Intersections
   """
-  def __init__(self, *intersections) -> Intersections():
+  def __init__(self, *intersections) -> Intersections:
     self.xs = list(intersections)
 
   def __getitem__(self, key: int) -> Intersection:

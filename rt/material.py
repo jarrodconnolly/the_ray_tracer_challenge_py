@@ -2,7 +2,9 @@
 Material module
 """
 from __future__ import annotations
-import rt as RT
+from rt.colour import Colour
+from rt.light import PointLight
+from rt.tuple import Point, Vector
 
 class Material:
   """
@@ -10,7 +12,7 @@ class Material:
   """
   def __init__(
     self,
-    colour: RT.Colour = RT.Colour(1, 1, 1),
+    colour: Colour = Colour(1, 1, 1),
     ambient: float = 0.1,
     diffuse: float = 0.9,
     specular: float = 0.9,
@@ -35,10 +37,10 @@ class Material:
 
   def lighting(
     self,
-    light: RT.PointLight,
-    point: RT.Point,
-    eyev: RT.Vector,
-    normalv: RT.Vector) -> RT.Colour:
+    light: PointLight,
+    point: Point,
+    eyev: Vector,
+    normalv: Vector) -> Colour:
     """ lighting calculation """
 
     # combine the surface color with the light's color/intensity
@@ -55,8 +57,8 @@ class Material:
     # light is on the other side of the surface.
     light_dot_normal = lightv.dot(normalv)
     if light_dot_normal < 0:
-      diffuse = RT.Colour(0, 0, 0)
-      specular = RT.Colour(0, 0, 0)
+      diffuse = Colour(0, 0, 0)
+      specular = Colour(0, 0, 0)
     else:
       # compute the diffuse contribution
       diffuse = effective_colour * self.diffuse * light_dot_normal
@@ -68,7 +70,7 @@ class Material:
       reflect_dot_eye = reflectv.dot(eyev)
 
       if reflect_dot_eye <= 0:
-        specular = RT.Colour(0, 0, 0)
+        specular = Colour(0, 0, 0)
       else:
         factor = pow(reflect_dot_eye, self.shininess)
         specular = light.intensity * self.specular * factor

@@ -1,13 +1,13 @@
 """ Putting It Together - Chapter 1 """
-import rt as RT
+from rt.tuple import Point, Vector
 
 def run():
   """ main entrypoint """
-  projectile_position = RT.Point(0, 1, 0)
-  projectile_velocity = RT.Vector(1, 1 ,0).normalize()
+  projectile_position = Point(0, 1, 0)
+  projectile_velocity = Vector(1, 1 ,0).normalize()
 
-  environment_gravity = RT.Vector(0, -0.1, 0)
-  environment_wind = RT.Vector(-0.01, 0, 0)
+  environment_gravity = Vector(0, -0.1, 0)
+  environment_wind = Vector(-0.01, 0, 0)
 
   def tick(position, velocity, gravity, wind):
     """ move the projectile """

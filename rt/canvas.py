@@ -3,7 +3,7 @@ Canvas module
 """
 from __future__ import annotations
 from io import StringIO
-import rt as RT
+from rt.colour import Colour
 
 class Canvas:
   """
@@ -12,14 +12,14 @@ class Canvas:
   def __init__(self, width: int, height: int) -> Canvas:
     self.width = width
     self.height = height
-    colour = RT.Colour(0, 0, 0)
+    colour = Colour(0, 0, 0)
     self._canvas = [colour for x in range(self.width * self.height)]
 
-  def write_pixel(self, x: int, y: int, colour: RT.Colour) -> None:
+  def write_pixel(self, x: int, y: int, colour: Colour) -> None:
     """ write a pixel to the canvas """
     self._canvas[y * self.width + x] = colour
 
-  def pixel_at(self, x: int, y: int) -> RT.Colour:
+  def pixel_at(self, x: int, y: int) -> Colour:
     """ read a pixel from the canvas """
     return self._canvas[y * self.width + x]
 
