@@ -1,4 +1,5 @@
 .vscode
+.dccache
 **/__pycache__
 **/.pytest_cache
 **/*.ppm
