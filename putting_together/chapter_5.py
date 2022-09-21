@@ -1,33 +1,33 @@
 """ Putting It Together - Chapter 4 """
-from ray import Canvas, Colour, Material, Point, PointLight, Ray, Sphere
+import ray as Ray
 
 def run():
   """ main entrypoint """
   canvas_pixels = 512
-  canvas = Canvas(canvas_pixels, canvas_pixels)
+  canvas = Ray.Canvas(canvas_pixels, canvas_pixels)
 
-  ray_origin = Point(0, 0, -5)
+  ray_origin = Ray.Point(0, 0, -5)
   wall_z = 10
   wall_size = 7.0
 
   pixel_size = wall_size / canvas_pixels
   half = wall_size / 2
 
-  material = Material()
-  material.colour = Colour(0, 0.2, 1)
-  shape = Sphere(material=material)
+  material = Ray.Material()
+  material.colour = Ray.Colour(0, 0.2, 1)
+  shape = Ray.Sphere(material=material)
 
-  light_position = Point(-10, 10, -10)
-  light_colour = Colour(1, 1, 1)
-  light = PointLight(light_position, light_colour)
+  light_position = Ray.Point(-10, 10, -10)
+  light_colour = Ray.Colour(1, 1, 1)
+  light = Ray.PointLight(light_position, light_colour)
 
   for y in range(0, canvas_pixels):
     world_y = half - pixel_size * y
     for x in range(0, canvas_pixels):
       world_x = -half + pixel_size * x
-      position = Point(world_x, world_y, wall_z)
+      position = Ray.Point(world_x, world_y, wall_z)
 
-      ray = Ray(ray_origin, (position - ray_origin).normalize())
+      ray = Ray.Ray(ray_origin, (position - ray_origin).normalize())
       xs = shape.intersect(ray)
 
       hit = xs.hit()

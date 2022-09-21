@@ -1,17 +1,17 @@
 """ Putting It Together - Chapter 3 """
 import math
-from ray import Canvas, Colour, Matrix, Point
+import ray as Ray
 
 def run():
   """ main entrypoint """
   canvas_size = 1024
   clock_radius = canvas_size * (3/8)
-  canvas = Canvas(canvas_size, canvas_size)
-  tick_colour = Colour(0, 0, 1)
-  start = Point(0, 1, 0)
+  canvas = Ray.Canvas(canvas_size, canvas_size)
+  tick_colour = Ray.Colour(0, 0, 1)
+  start = Ray.Point(0, 1, 0)
 
   for hour in range(0, 12):
-    rotation = Matrix.rotation_z(hour * math.pi / 6)
+    rotation = Ray.Matrix.rotation_z(hour * math.pi / 6)
     position = rotation * start
 
     x = round(position.x * clock_radius + canvas_size / 2)

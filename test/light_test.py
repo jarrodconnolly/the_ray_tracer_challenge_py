@@ -1,13 +1,13 @@
 """ Light Tests """
-from ray import Colour, Point, PointLight
+import ray as Ray
 
 class TestPointLight:
   """ features/lights.feature """
 
   def test_point_light(self):
     """ A point light has a position and intensity """
-    intensity = Colour(1, 1, 1)
-    position = Point(0, 0, 0)
-    light = PointLight(position, intensity)
+    intensity = Ray.Colour(1, 1, 1)
+    position = Ray.Point(0, 0, 0)
+    light = Ray.PointLight(position, intensity)
     assert light.position == position
     assert light.intensity == intensity

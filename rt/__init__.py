@@ -8,3 +8,4 @@ from .matrix import Matrix
 from .ray import Ray
 from .sphere import Sphere
 from .tuple import Point, Tuple, Vector
+from .world import World

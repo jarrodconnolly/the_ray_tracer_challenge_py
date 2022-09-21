@@ -1,13 +1,13 @@
 """ Putting It Together - Chapter 1 """
-from ray import Point, Vector
+import ray as Ray
 
 def run():
   """ main entrypoint """
-  projectile_position = Point(0, 1, 0)
-  projectile_velocity = Vector(1, 1 ,0).normalize()
+  projectile_position = Ray.Point(0, 1, 0)
+  projectile_velocity = Ray.Vector(1, 1 ,0).normalize()
 
-  environment_gravity = Vector(0, -0.1, 0)
-  environment_wind = Vector(-0.01, 0, 0)
+  environment_gravity = Ray.Vector(0, -0.1, 0)
+  environment_wind = Ray.Vector(-0.01, 0, 0)
 
   def tick(position, velocity, gravity, wind):
     """ move the projectile """
