@@ -2,9 +2,11 @@
 Material module
 """
 from __future__ import annotations
+
 from rt.colour import Colour
 from rt.light import PointLight
 from rt.tuple import Point, Vector
+
 
 class Material:
   """

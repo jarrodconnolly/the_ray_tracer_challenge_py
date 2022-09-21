@@ -1,7 +1,9 @@
 """ Canvas Tests """
 from io import StringIO
+
 from rt.canvas import Canvas
 from rt.colour import Colour
+
 
 class TestCanvas:
   """ features/canvas.feature """

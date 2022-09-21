@@ -1,10 +1,12 @@
 """ Sphere Tests """
-from math import sqrt, pi
-from rt.tuple import Point, Vector
-from rt.sphere import Sphere
-from rt.ray import Ray
-from rt.matrix import Matrix
+from math import pi, sqrt
+
 from rt.material import Material
+from rt.matrix import Matrix
+from rt.ray import Ray
+from rt.sphere import Sphere
+from rt.tuple import Point, Vector
+
 
 class TestSphere:
   """ features/spheres.feature """

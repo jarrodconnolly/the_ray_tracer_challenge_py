@@ -2,9 +2,11 @@
 Intersection module
 """
 from __future__ import annotations
+
+from rt.ray import Ray
 from rt.shape import Shape
 from rt.tuple import Point, Vector
-from rt.ray import Ray
+
 
 class Comps:
   """ Prepared Computations """

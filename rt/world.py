@@ -2,15 +2,17 @@
 World module
 """
 from __future__ import annotations
-from rt.sphere import Sphere
-from rt.shape import Shape
-from rt.ray import Ray
-from rt.tuple import Point
+
+from rt.colour import Colour
 from rt.intersection import Intersections
 from rt.light import PointLight
-from rt.colour import Colour
 from rt.material import Material
 from rt.matrix import Matrix
+from rt.ray import Ray
+from rt.shape import Shape
+from rt.sphere import Sphere
+from rt.tuple import Point
+
 
 class World:
   """

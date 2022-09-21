@@ -1,6 +1,7 @@
 """ Putting It Together - Chapter 1 """
 from rt.tuple import Point, Vector
 
+
 def run():
   """ main entrypoint """
   projectile_position = Point(0, 1, 0)

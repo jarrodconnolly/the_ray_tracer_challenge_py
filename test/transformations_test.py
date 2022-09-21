@@ -1,7 +1,9 @@
 """ Transformation Tests """
 import math
-from rt.tuple import Point, Vector
+
 from rt.matrix import Matrix
+from rt.tuple import Point, Vector
+
 
 class TestTransformations:
   """ features/transformations.feature """

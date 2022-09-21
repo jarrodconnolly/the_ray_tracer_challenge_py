@@ -1,12 +1,13 @@
 """ World Tests """
-from rt.world import World
-from rt.light import PointLight
-from rt.tuple import Point, Vector
 from rt.colour import Colour
-from rt.sphere import Sphere
+from rt.light import PointLight
 from rt.material import Material
 from rt.matrix import Matrix
 from rt.ray import Ray
+from rt.sphere import Sphere
+from rt.tuple import Point, Vector
+from rt.world import World
+
 
 class TestWorld:
   """ features/world.feature """

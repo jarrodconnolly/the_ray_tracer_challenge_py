@@ -2,8 +2,10 @@
 Light module
 """
 from __future__ import annotations
+
 from rt.colour import Colour
 from rt.tuple import Point
+
 
 class PointLight:
   """

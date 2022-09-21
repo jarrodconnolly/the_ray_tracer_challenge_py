@@ -2,8 +2,11 @@
 Canvas module
 """
 from __future__ import annotations
+
 from io import StringIO
+
 from rt.colour import Colour
+
 
 class Canvas:
   """

@@ -1,9 +1,11 @@
 """ Putting It Together - Chapter 3 """
 import math
+
 from rt.canvas import Canvas
 from rt.colour import Colour
 from rt.matrix import Matrix
 from rt.tuple import Point
+
 
 def run():
   """ main entrypoint """

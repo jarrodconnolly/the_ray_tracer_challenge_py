@@ -1,7 +1,8 @@
 """ Putting It Together - Chapter 2 """
-from rt.tuple import Point, Vector
 from rt.canvas import Canvas
 from rt.colour import Colour
+from rt.tuple import Point, Vector
+
 
 def run():
   """ main entrypoint """

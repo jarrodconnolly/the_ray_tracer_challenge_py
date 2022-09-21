@@ -1,9 +1,11 @@
 """ Material Tests """
 from math import sqrt
-from rt.material import Material
+
 from rt.colour import Colour
-from rt.tuple import Point, Vector
 from rt.light import PointLight
+from rt.material import Material
+from rt.tuple import Point, Vector
+
 
 class TestMaterial:
   """ features/materials.feature """

@@ -2,6 +2,7 @@
 from rt.matrix import Matrix
 from rt.tuple import Tuple
 
+
 class TestMatrix:
   """ features/matrices.feature """
 

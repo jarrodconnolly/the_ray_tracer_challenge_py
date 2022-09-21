@@ -2,7 +2,9 @@
 Matrix module
 """
 from __future__ import annotations
+
 import math
+
 from rt.tuple import Tuple
 
 

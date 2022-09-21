@@ -1,8 +1,9 @@
 """ Intersection Tests """
-from rt.sphere import Sphere
 from rt.intersection import Intersection, Intersections
 from rt.ray import Ray
+from rt.sphere import Sphere
 from rt.tuple import Point, Vector
+
 
 class TestIntersection:
   """ features/intersections.feature """

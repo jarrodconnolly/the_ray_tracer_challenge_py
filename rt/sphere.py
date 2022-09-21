@@ -2,13 +2,16 @@
 Sphere module
 """
 from __future__ import annotations
+
 import math
-from rt.ray import Ray
+
+from rt.intersection import Intersection, Intersections
 from rt.material import Material
 from rt.matrix import Matrix
-from rt.tuple import Point, Vector
-from rt.intersection import Intersections, Intersection
+from rt.ray import Ray
 from rt.shape import Shape
+from rt.tuple import Point, Vector
+
 
 class Sphere(Shape):
   """

@@ -2,8 +2,10 @@
 Ray module
 """
 from __future__ import annotations
-from rt.tuple import Point, Vector
+
 from rt.matrix import Matrix
+from rt.tuple import Point, Vector
+
 
 class Ray:
   """

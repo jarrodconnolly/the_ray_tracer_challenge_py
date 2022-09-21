@@ -1,6 +1,8 @@
 """ Tuple, Point, Vector Tests """
 from math import sqrt
+
 from rt.tuple import Point, Tuple, Vector
+
 
 class TestTuple:
   """ features/tuples.feature """

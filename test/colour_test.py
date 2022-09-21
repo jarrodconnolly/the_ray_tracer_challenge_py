@@ -1,6 +1,7 @@
 """ Colour Tests """
 from rt.colour import Colour
 
+
 class TestColour:
   """ features/tuples.feature """
 

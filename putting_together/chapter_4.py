@@ -2,9 +2,9 @@
 # import math
 from rt.canvas import Canvas
 from rt.colour import Colour
-from rt.tuple import Point
-from rt.sphere import Sphere
 from rt.ray import Ray
+from rt.sphere import Sphere
+from rt.tuple import Point
 
 CANVAS_PIXELS = 128
 WALL_Z = 10

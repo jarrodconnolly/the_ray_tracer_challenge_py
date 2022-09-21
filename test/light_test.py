@@ -1,7 +1,8 @@
 """ Light Tests """
 from rt.colour import Colour
-from rt.tuple import Point
 from rt.light import PointLight
+from rt.tuple import Point
+
 
 class TestPointLight:
   """ features/lights.feature """

@@ -1,11 +1,12 @@
 """ Putting It Together - Chapter 4 """
 from rt.canvas import Canvas
-from rt.tuple import Point
-from rt.material import Material
 from rt.colour import Colour
-from rt.sphere import Sphere
 from rt.light import PointLight
+from rt.material import Material
 from rt.ray import Ray
+from rt.sphere import Sphere
+from rt.tuple import Point
+
 
 def run():
   """ main entrypoint """

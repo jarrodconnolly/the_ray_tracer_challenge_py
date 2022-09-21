@@ -1,7 +1,8 @@
 """ Ray Tests """
-from rt.tuple import Point, Vector
-from rt.ray import Ray
 from rt.matrix import Matrix
+from rt.ray import Ray
+from rt.tuple import Point, Vector
+
 
 class TestRay:
   """ features/rays.feature """
