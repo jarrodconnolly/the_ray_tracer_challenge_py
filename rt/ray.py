@@ -2,20 +2,20 @@
 Ray module
 """
 from __future__ import annotations
-import ray as Ray
+import rt as RT
 
 class Ray:
   """
   Ray
   """
-  def __init__(self, origin: Ray.Point, direction: Ray.Vector) -> Ray:
-    self.origin: Ray.Point = origin
-    self.direction: Ray.Vector = direction
+  def __init__(self, origin: RT.Point, direction: RT.Vector) -> Ray:
+    self.origin: RT.Point = origin
+    self.direction: RT.Vector = direction
 
-  def position(self, distance: float) -> Ray.Point:
+  def position(self, distance: float) -> RT.Point:
     """ Compute point some distance along ray """
     return self.origin + self.direction * distance
 
-  def transform(self, transform: Ray.Matrix) -> Ray:
+  def transform(self, transform: RT.Matrix) -> Ray:
     """ Transform the ray """
     return Ray(transform * self.origin, transform * self.direction)

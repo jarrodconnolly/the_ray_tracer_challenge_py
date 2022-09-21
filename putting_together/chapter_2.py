@@ -1,24 +1,24 @@
 """ Putting It Together - Chapter 2 """
-import ray as Ray
+import rt as RT
 
 def run():
   """ main entrypoint """
-  projectile_position = Ray.Point(0, 1, 0)
-  projectile_velocity = Ray.Vector(1, 1.8 ,0).normalize() * 11.25
+  projectile_position = RT.Point(0, 1, 0)
+  projectile_velocity = RT.Vector(1, 1.8 ,0).normalize() * 11.25
 
-  environment_gravity = Ray.Vector(0, -0.1, 0)
-  environment_wind = Ray.Vector(-0.01, 0, 0)
+  environment_gravity = RT.Vector(0, -0.1, 0)
+  environment_wind = RT.Vector(-0.01, 0, 0)
 
   canvas_width = 900
   canvas_height = 550
-  canvas = Ray.Canvas(canvas_width, canvas_height)
+  canvas = RT.Canvas(canvas_width, canvas_height)
 
-  def tick(position: Ray.Point, velocity: Ray.Vector, gravity: Ray.Vector, wind: Ray.Vector):
+  def tick(position: RT.Point, velocity: RT.Vector, gravity: RT.Vector, wind: RT.Vector):
     """ move the projectile """
     new_position = position + velocity
     pixel_x = max(min(canvas_width - 1, round(new_position.x)), 0)
     pixel_y = max(min(canvas_height - 1, canvas_height - round(new_position.y)), 0)
-    canvas.write_pixel(pixel_x, pixel_y, Ray.Colour(0, 0, 1))
+    canvas.write_pixel(pixel_x, pixel_y, RT.Colour(0, 0, 1))
     new_velocity = velocity + gravity + wind
     return (new_position, new_velocity)
 

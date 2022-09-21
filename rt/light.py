@@ -2,13 +2,13 @@
 Light module
 """
 from __future__ import annotations
-import ray as Ray
+import rt as RT
 
 class PointLight:
   """
   PointLight
   """
-  def __init__(self, position: Ray.Point, intensity: Ray.Colour) -> PointLight:
+  def __init__(self, position: RT.Point, intensity: RT.Colour) -> PointLight:
     self.position = position
     self.intensity = intensity
 

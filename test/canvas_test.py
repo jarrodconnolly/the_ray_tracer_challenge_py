@@ -1,29 +1,29 @@
 """ Canvas Tests """
 from io import StringIO
-import ray as Ray
+import rt as RT
 
 class TestCanvas:
   """ features/canvas.feature """
 
   def test_canvas(self):
     """ Creating a canvas """
-    c = Ray.Canvas(10, 20)
+    c = RT.Canvas(10, 20)
     assert c.width == 10
     assert c.height == 20
     for x in range(0, 10):
       for y in range(0, 20):
-        assert c.pixel_at(x, y) == Ray.Colour(0, 0, 0)
+        assert c.pixel_at(x, y) == RT.Colour(0, 0, 0)
 
   def test_write_pixel(self):
     """ Writing pixels to a canvas """
-    c = Ray.Canvas(10, 20)
-    red = Ray.Colour(1, 0, 0)
+    c = RT.Canvas(10, 20)
+    red = RT.Colour(1, 0, 0)
     c.write_pixel(2, 3, red)
     assert c.pixel_at(2, 3) == red
 
   def test_ppm_header(self):
     """ Constructing the PPM header """
-    c = Ray.Canvas(5, 3)
+    c = RT.Canvas(5, 3)
     ppm_data = StringIO(newline="\n")
     c.canvas_to_ppm(ppm_data)
     ppm_data.seek(0)
@@ -35,10 +35,10 @@ class TestCanvas:
 
   def test_ppm_data(self):
     """ Constructing the PPM pixel data """
-    c = Ray.Canvas(5, 3)
-    c1 = Ray.Colour(1.5, 0, 0)
-    c2 = Ray.Colour(0, 0.5, 0)
-    c3 = Ray.Colour(-0.5, 0, 1)
+    c = RT.Canvas(5, 3)
+    c1 = RT.Colour(1.5, 0, 0)
+    c2 = RT.Colour(0, 0.5, 0)
+    c3 = RT.Colour(-0.5, 0, 1)
     c.write_pixel(0, 0, c1)
     c.write_pixel(2, 1, c2)
     c.write_pixel(4, 2, c3)
@@ -56,10 +56,10 @@ class TestCanvas:
 
   def test_ppm_long_lines(self):
     """ Splitting long lines in PPM files """
-    c = Ray.Canvas(10, 2)
+    c = RT.Canvas(10, 2)
     for x in range(0, 10):
       for y in range(0, 2):
-        c.write_pixel(x, y, Ray.Colour(1, 0.8, 0.6))
+        c.write_pixel(x, y, RT.Colour(1, 0.8, 0.6))
 
     ppm_data = StringIO()
     c.canvas_to_ppm(ppm_data)

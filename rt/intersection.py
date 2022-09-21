@@ -2,16 +2,16 @@
 Intersection module
 """
 from __future__ import annotations
-import ray as Ray
+import rt as RT
 
 class Comps:
   """ Prepared Computations """
   def __init__(self) -> Comps:
     self.t: int = None
-    self.object: Ray.Sphere = None
-    self.point: Ray.Point = None
-    self.eyev: Ray.Vector = None
-    self.normalv: Ray.Vector = None
+    self.object: RT.Sphere = None
+    self.point: RT.Point = None
+    self.eyev: RT.Vector = None
+    self.normalv: RT.Vector = None
 
 class Intersection:
   """
@@ -21,7 +21,7 @@ class Intersection:
     self.t = distance
     self.object = obj
 
-  def prepare_computations(self, ray: Ray) -> Comps:
+  def prepare_computations(self, ray: RT.Ray) -> Comps:
     """ Prepare Computations """
     comps = Comps()
     comps.t = self.t
