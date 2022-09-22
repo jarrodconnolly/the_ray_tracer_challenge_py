@@ -4,7 +4,7 @@ World module
 from __future__ import annotations
 
 from rt.colour import Colour
-from rt.intersection import Intersections
+from rt.intersection import Comps, Intersection, Intersections
 from rt.light import PointLight
 from rt.material import Material
 from rt.matrix import Matrix
@@ -31,6 +31,26 @@ class World:
     intersections.xs.sort(key=lambda i: i.t)
 
     return intersections
+
+  def shade_hit(self, comps: Comps) -> Colour:
+    """ shade function. get colour from all the lights """
+    colour = Colour(0, 0, 0)
+    for light in self.lights:
+      colour += comps.object.material.lighting(
+      light,
+      comps.point,
+      comps.eyev,
+      comps.normalv)
+    return colour
+
+  def colour_at(self, ray: Ray) -> Colour:
+    """ get colour from ray at world intersection """
+    i = self.intersect(ray)
+    hit: Intersection = i.hit()
+    if hit is None:
+      return Colour(0, 0, 0)
+    comps = hit.prepare_computations(ray)
+    return self.shade_hit(comps)
 
   @classmethod
   def DefaultWorld(cls) -> World:

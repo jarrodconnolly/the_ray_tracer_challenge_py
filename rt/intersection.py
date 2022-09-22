@@ -12,10 +12,11 @@ class Comps:
   """ Prepared Computations """
   def __init__(self) -> Comps:
     self.t: int = None
-    self.object: Shape = None
-    self.point: Point = None
-    self.eyev: Vector = None
-    self.normalv: Vector = None
+    self.object: Shape
+    self.point: Point
+    self.eyev: Vector
+    self.normalv: Vector
+    self.inside: bool
 
 class Intersection:
   """
@@ -33,6 +34,11 @@ class Intersection:
     comps.point = ray.position(comps.t)
     comps.eyev = -ray.direction
     comps.normalv = comps.object.normal_at(comps.point)
+    if comps.normalv.dot(comps.eyev) < 0:
+      comps.inside = True
+      comps.normalv = -comps.normalv
+    else:
+      comps.inside = False
     return comps
 
 class Intersections:

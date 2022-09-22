@@ -1,5 +1,6 @@
 """ World Tests """
 from rt.colour import Colour
+from rt.intersection import Intersection
 from rt.light import PointLight
 from rt.material import Material
 from rt.matrix import Matrix
@@ -41,3 +42,49 @@ class TestWorld:
     assert xs[1].t == 4.5
     assert xs[2].t == 5.5
     assert xs[3].t == 6
+
+  def test_shading_intersection(self):
+    """ Shading an intersection """
+    w = World.DefaultWorld()
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    shape = w.objects[0]
+    i = Intersection(4, shape)
+    comps = i.prepare_computations(r)
+    c = w.shade_hit(comps)
+    assert c == Colour(0.38066, 0.47583, 0.2855)
+
+  def test_shading_intersection_inside(self):
+    """ Shading an intersection from the inside """
+    w = World.DefaultWorld()
+    w.lights[0] = PointLight(Point(0, 0.25, 0), Colour(1, 1, 1))
+    r = Ray(Point(0, 0, 0), Vector(0, 0, 1))
+    shape = w.objects[1]
+    i = Intersection(0.5, shape)
+    comps = i.prepare_computations(r)
+    c = w.shade_hit(comps)
+    assert c == Colour(0.90498, 0.90498, 0.90498)
+
+  def test_colour_ray_miss(self):
+    """ The color when a ray misses """
+    w = World.DefaultWorld()
+    r = Ray(Point(0, 0, -5), Vector(0, 1, 0))
+    c = w.colour_at(r)
+    assert c == Colour(0, 0, 0)
+
+  def test_colour_ray_hit(self):
+    """ The color when a ray hits """
+    w = World.DefaultWorld()
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    c = w.colour_at(r)
+    assert c == Colour(0.38066, 0.47583, 0.2855)
+
+  def test_intersection_behind_ray(self):
+    """ The color with an intersection behind the ray """
+    w = World.DefaultWorld()
+    outer = w.objects[0]
+    outer.material.ambient = 1
+    inner = w.objects[1]
+    inner.material.ambient = 1
+    r = Ray(Point(0, 0, 0.75), Vector(0, 0, -1))
+    c = w.colour_at(r)
+    assert c == inner.material.colour

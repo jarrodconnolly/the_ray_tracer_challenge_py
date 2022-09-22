@@ -74,3 +74,22 @@ class TestIntersection:
     assert comps.point == Point(0, 0, -1)
     assert comps.eyev == Vector(0, 0, -1)
     assert comps.normalv == Vector(0, 0, -1)
+
+  def test_hit_intersection_outside(self):
+    """ The hit, when an intersection occurs on the outside """
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    shape = Sphere()
+    i = Intersection(4, shape)
+    comps = i.prepare_computations(r)
+    assert comps.inside is False
+
+  def test_hit_intersection_inside(self):
+    """ The hit, when an intersection occurs on the inside """
+    r = Ray(Point(0, 0, 0), Vector(0, 0, 1))
+    shape = Sphere()
+    i = Intersection(1, shape)
+    comps = i.prepare_computations(r)
+    assert comps.point == Point(0, 0, 1)
+    assert comps.eyev == Vector(0, 0, -1)
+    assert comps.inside is True
+    assert comps.normalv == Vector(0, 0, -1)

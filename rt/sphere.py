@@ -6,8 +6,8 @@ from __future__ import annotations
 import math
 
 from rt.intersection import Intersection, Intersections
-from rt.material import Material
-from rt.matrix import Matrix
+# from rt.material import Material
+# from rt.matrix import Matrix
 from rt.ray import Ray
 from rt.shape import Shape
 from rt.tuple import Point, Vector
@@ -17,12 +17,11 @@ class Sphere(Shape):
   """
   Sphere
   """
-  def __init__(
-    self,
-    transform: Matrix = Matrix.identity(),
-    material: Material = Material()) -> Sphere:
-    self.transform = transform
-    self.material = material
+  # def __init__(
+  #   self,
+  #   transform: Matrix = Matrix.identity(),
+  #   material: Material = Material()) -> Sphere:
+  #   super().__init__(transform, material)
 
   def __eq__(self, o: Sphere) -> bool:
     return self.transform == o.transform and self.material == o.material
