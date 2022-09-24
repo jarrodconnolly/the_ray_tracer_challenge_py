@@ -5,6 +5,9 @@ from __future__ import annotations
 
 import math
 
+#from rt.matrix import Matrix
+import rt
+
 
 class Tuple:
   """
@@ -90,6 +93,20 @@ class Point(Tuple):
   """ Point specialization of Tuple """
   def __init__(self, x: float, y: float, z: float) -> Tuple:
     super().__init__(x, y, z, 1)
+
+  def view_transform(self, to: Point, up: Vector) -> rt.matrix.Matrix:
+    """ compute the view transform """
+    forward = (to - self).normalize()
+    upn = up.normalize()
+    left = forward.cross(upn)
+    true_up = left.cross(forward)
+    orientation = rt.matrix.Matrix([
+      [left.x, left.y, left.z, 0],
+      [true_up.x, true_up.y, true_up.z, 0],
+      [-forward.x, -forward.y, -forward.z, 0],
+      [0, 0, 0, 1]
+      ])
+    return orientation * rt.matrix.Matrix.translation(-self.x, -self.y, -self.z)
 
 class Vector(Tuple):
   """ Vector specialization of Tuple """

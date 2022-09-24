@@ -144,3 +144,40 @@ class TestTransformations:
 
     T = C * B * A
     assert T * p == Point(15, 0, 7)
+
+  def test_view_transformation_matrix_default(self):
+    """ The transformation matrix for the default orientation """
+    eye_from = Point(0, 0, 0)
+    to = Point(0, 0, -1)
+    up = Vector(0, 1, 0)
+    t = eye_from.view_transform(to, up)
+    assert t == Matrix.identity()
+
+  def test_view_transformation_matrix_positive_z(self):
+    """ A view transformation matrix looking in positive z direction """
+    eye_from = Point(0, 0, 0)
+    to = Point(0, 0, 1)
+    up = Vector(0, 1, 0)
+    t = eye_from.view_transform(to, up)
+    assert t == Matrix.scaling(-1, 1, -1)
+
+  def test_view_transformation_moves_world(self):
+    """ The view transformation moves the world """
+    eye_from = Point(0, 0, 8)
+    to = Point(0, 0, 0)
+    up = Vector(0, 1, 0)
+    t = eye_from.view_transform(to, up)
+    assert t == Matrix.translation(0, 0, -8)
+
+  def test_view_transformation_arbitrary(self):
+    """ An arbitrary view transformation """
+    eye_from = Point(1, 3, 2)
+    to = Point(4, -2, 8)
+    up = Vector(1, 1, 0)
+    t = eye_from.view_transform(to, up)
+    assert t == Matrix([
+      [-0.50709, 0.50709, 0.67612, -2.36643],
+      [0.76772, 0.60609, 0.12122, -2.82843],
+      [-0.35857, 0.59761, -0.71714, 0.00000],
+      [0.00000, 0.00000, 0.00000, 1.00000]
+      ])

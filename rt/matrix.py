@@ -32,6 +32,10 @@ class Matrix:
 
   def __mul__(self, other: Matrix|Tuple) -> Matrix|Tuple:
     if isinstance(other, Matrix):
+      # if self == Matrix.identity():
+      #   return other
+      # elif other == Matrix.identity():
+      #   return self
       matrix = Matrix.by_size(self.row_count, self.column_count)
       for row in range(0, self.row_count):
         for col in range(0, self.column_count):
@@ -41,7 +45,7 @@ class Matrix:
     if isinstance(other, Tuple):
       tuple_params = []
       for row in range(0, self.row_count):
-        tuple_params.append(self[row][0] * other.x + self[row][1] * other.y + self[row][2] * other.z + self[row][3] * other.w)
+        tuple_params.append(self.rows[row][0] * other.x + self.rows[row][1] * other.y + self.rows[row][2] * other.z + self.rows[row][3] * other.w)
       return Tuple(*tuple_params) #pylint: disable = no-value-for-parameter
 
     raise ValueError("Invalid type to multiply with matrix")
