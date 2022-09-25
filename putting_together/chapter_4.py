@@ -6,7 +6,7 @@ from rt.ray import Ray
 from rt.sphere import Sphere
 from rt.tuple import Point
 
-CANVAS_PIXELS = 128
+CANVAS_PIXELS = 512
 WALL_Z = 10
 WALL_SIZE = 7.0
 

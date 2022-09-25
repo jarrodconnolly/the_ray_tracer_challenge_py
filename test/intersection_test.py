@@ -1,5 +1,6 @@
 """ Intersection Tests """
 from rt.intersection import Intersection, Intersections
+from rt.matrix import Matrix
 from rt.ray import Ray
 from rt.sphere import Sphere
 from rt.tuple import Point, Vector
@@ -93,3 +94,13 @@ class TestIntersection:
     assert comps.eyev == Vector(0, 0, -1)
     assert comps.inside is True
     assert comps.normalv == Vector(0, 0, -1)
+
+  def test_hit_offset_point(self):
+    """ The hit should offset the point """
+    r = Ray(Point(0, 0, -5), Vector(0, 0, 1))
+    shape = Sphere()
+    shape.transform = Matrix.translation(0, 0, 1)
+    i = Intersection(5, shape)
+    comps = i.prepare_computations(r)
+    assert comps.over_point.z < -1e-05 / 2
+    assert comps.point.z > comps.over_point.z

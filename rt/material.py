@@ -42,17 +42,21 @@ class Material:
     light: PointLight,
     point: Point,
     eyev: Vector,
-    normalv: Vector) -> Colour:
+    normalv: Vector,
+    in_shadow: bool = False) -> Colour:
     """ lighting calculation """
 
     # combine the surface color with the light's color/intensity
     effective_colour = self.colour * light.intensity
 
-    # find the direction to the light source
-    lightv = (light.position - point).normalize()
-
     # compute the ambient contribution
     ambient = effective_colour * self.ambient
+
+    if in_shadow is True:
+      return ambient
+
+    # find the direction to the light source
+    lightv = (light.position - point).normalize()
 
     # light_dot_normal represents the cosine of the angle between the
     # light vector and the normal vector. A negative number means the

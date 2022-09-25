@@ -17,7 +17,7 @@ class TestTransformations:
   def test_multiply_inverse_transform_matrix(self):
     """ Multiplying by the inverse of a translation matrix """
     transform = Matrix.translation(5, -3, 2)
-    inv = transform.inverse()
+    inv = transform.inverse
     p = Point(-3, 4, 5)
     assert inv * p == Point(-8, 7, 3)
 
@@ -42,7 +42,7 @@ class TestTransformations:
   def test_inverse_scaling_matrix_vector(self):
     """ Multiplying by the inverse of a scaling matrix """
     transform = Matrix.scaling(2, 3, 4)
-    inv = transform.inverse()
+    inv = transform.inverse
     v = Vector(-4, 6, 8)
     assert inv * v == Vector(-2, 2, 2)
 
@@ -64,7 +64,7 @@ class TestTransformations:
     """ The inverse of an x-rotation rotates in the opposite direction """
     p = Point(0, 1, 0)
     half_quarter = Matrix.rotation_x(math.pi / 4)
-    inv = half_quarter.inverse()
+    inv = half_quarter.inverse
     assert inv * p == Point(0, math.sqrt(2) / 2, -(math.sqrt(2) / 2))
 
   def test_rotation_point_y(self):

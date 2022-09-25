@@ -4,6 +4,13 @@ import sys
 import time
 from os.path import exists
 
+# import pyroscope
+
+# pyroscope.configure(
+#   application_name = "RT",
+#   server_address   = "http://localhost:4040",
+# )
+
 if len(sys.argv) <= 1:
   print("Specifcy a chapter to run.")
   sys.exit(1)

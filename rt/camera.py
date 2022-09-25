@@ -12,6 +12,7 @@ from rt.ray import Ray
 from rt.tuple import Point
 from rt.world import World
 
+
 class Camera:
   """
   Camera
@@ -40,8 +41,8 @@ class Camera:
     world_x = self.half_width - xoffset
     world_y = self.half_height - yoffset
 
-    pixel = self.transform.inverse() * Point(world_x, world_y, -1)
-    origin = self.transform.inverse() * Point(0, 0, 0)
+    pixel = self.transform.inverse * Point(world_x, world_y, -1)
+    origin = self.transform.inverse * Point(0, 0, 0)
     direction = (pixel - origin).normalize()
 
     return Ray(origin, direction)

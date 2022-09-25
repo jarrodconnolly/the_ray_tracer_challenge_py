@@ -131,7 +131,7 @@ class TestMatrix:
       [1,8,5,3],
       [0,0,5,8]
     ])
-    assert A.transpose() == Matrix([
+    assert A.transpose == Matrix([
       [0,9,1,0],
       [9,8,8,0],
       [3,0,5,5],
@@ -140,7 +140,7 @@ class TestMatrix:
 
   def test_transpose_identity_matrix(self):
     """ Transposing the identity matrix """
-    A = Matrix.identity().transpose()
+    A = Matrix.identity().transpose
     assert A == Matrix.identity()
 
   def test_determinant_2_2(self):
@@ -149,7 +149,7 @@ class TestMatrix:
       [1,5],
       [-3,2]
     ])
-    assert A.determinant() == 17
+    assert A.determinant == 17
 
   def test_submatrix_3_3(self):
     """ A submatrix of a 3x3 matrix is a 2x2 matrix """
@@ -208,7 +208,7 @@ class TestMatrix:
     assert A.cofactor(0, 0) == 56
     assert A.cofactor(0, 1) == 12
     assert A.cofactor(0, 2) == -46
-    assert A.determinant() == -196
+    assert A.determinant == -196
 
   def test_determinant_4_4(self):
     """ Calculating the determinant of a 4x4 matrix """
@@ -222,7 +222,7 @@ class TestMatrix:
     assert A.cofactor(0, 1) == 447
     assert A.cofactor(0, 2) == 210
     assert A.cofactor(0, 3) == 51
-    assert A.determinant() == -4071
+    assert A.determinant == -4071
 
   def test_invertable_matrix(self):
     """ Testing an invertible matrix for invertibility """
@@ -232,7 +232,7 @@ class TestMatrix:
       [4,-9,3,-7],
       [9,1,7,-6]
     ])
-    assert A.determinant() == -2120
+    assert A.determinant == -2120
 
   def test_non_invertable_matrix(self):
     """ Testing a noninvertible matrix for invertibility """
@@ -242,7 +242,7 @@ class TestMatrix:
       [0,-5,1,-5],
       [0,0,0,0]
     ])
-    assert A.determinant() == 0
+    assert A.determinant == 0
 
   def test_matrix_inverse(self):
     """ Calculating the inverse of a matrix """
@@ -252,8 +252,8 @@ class TestMatrix:
       [7,7,-6,-7],
       [1,-3,7,4]
     ])
-    B = A.inverse()
-    assert A.determinant() == 532
+    B = A.inverse
+    assert A.determinant == 532
     assert A.cofactor(2, 3) == -160
     assert B[3][2] == -160/532
     assert A.cofactor(3, 2) == 105
@@ -273,7 +273,7 @@ class TestMatrix:
       [-6,0,9,6],
       [-3,0,-9,-4]
     ])
-    assert A.inverse() == Matrix([
+    assert A.inverse == Matrix([
       [-0.15385, -0.15385, -0.28205, -0.53846],
       [-0.07692, 0.12308, 0.02564, 0.03077],
       [0.35897, 0.35897, 0.43590, 0.92308],
@@ -289,7 +289,7 @@ class TestMatrix:
       [-4, 9, 6, 4],
       [-7, 6, 6, 2]
     ])
-    assert A.inverse() == Matrix([
+    assert A.inverse == Matrix([
       [-0.04074, -0.07778, 0.14444, -0.22222],
       [-0.07778, 0.03333, 0.36667, -0.33333],
       [-0.02901, -0.14630, -0.10926, 0.12963],
@@ -311,4 +311,4 @@ class TestMatrix:
       [6, -2, 0, 5]
     ])
     C = A * B
-    assert C * B.inverse() == A
+    assert C * B.inverse == A

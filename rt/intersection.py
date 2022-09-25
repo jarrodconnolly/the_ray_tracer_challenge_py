@@ -17,6 +17,7 @@ class Comps:
     self.eyev: Vector
     self.normalv: Vector
     self.inside: bool
+    self.over_point: Point
 
 class Intersection:
   """
@@ -39,6 +40,7 @@ class Intersection:
       comps.normalv = -comps.normalv
     else:
       comps.inside = False
+    comps.over_point = comps.point + comps.normalv * 1e-05
     return comps
 
 class Intersections:

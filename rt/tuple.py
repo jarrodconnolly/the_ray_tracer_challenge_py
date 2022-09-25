@@ -13,6 +13,7 @@ class Tuple:
   """
   Tuple holds x y z w for points and vectors.
   """
+  __slots__ = 'x', 'y', 'z', 'w'
   def __init__(self, x: float, y: float, z: float, w: int) -> Tuple:
     self.x = x
     self.y = y

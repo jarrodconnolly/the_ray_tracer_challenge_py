@@ -4,6 +4,7 @@ Matrix module
 from __future__ import annotations
 
 import math
+from functools import cached_property
 
 from rt.tuple import Tuple
 
@@ -14,69 +15,89 @@ class Matrix:
   """
   def __init__(self, rows: list) -> Matrix:
     self.rows = rows
-    self.row_count = len(rows)
-    self.column_count = len(rows)
-    self._inverse = None
+    self.size = len(rows)
+    # self._inverse: Matrix
+    # self._transpose: Matrix
+    # self._determinant: int
 
   def __getitem__(self, key: int) -> list:
     return self.rows[key]
 
   def __eq__(self, other: Matrix) -> bool:
-    if self.row_count != other.row_count or self.column_count != other.column_count:
+    if self.size != other.size:
       return False
-    for i in range(0, self.row_count):
-      for j in range(0, self.column_count):
+    for i in range(0, self.size):
+      for j in range(0, self.size):
         if not math.isclose(self[i][j], other[i][j], abs_tol=1e-05):
           return False
     return True
 
   def __mul__(self, other: Matrix|Tuple) -> Matrix|Tuple:
     if isinstance(other, Matrix):
-      # if self == Matrix.identity():
-      #   return other
-      # elif other == Matrix.identity():
-      #   return self
-      matrix = Matrix.by_size(self.row_count, self.column_count)
-      for row in range(0, self.row_count):
-        for col in range(0, self.column_count):
-          matrix[row][col] = self[row][0] * other[0][col] + self[row][1] * other[1][col] + self[row][2] * other[2][col] + self[row][3] * other[3][col]
+      matrix = Matrix.by_size(self.size, self.size)
+      # matrix.rows = [[sum(a * b for a, b in zip(A_row, B_col))
+      #                   for B_col in zip(*other.rows)]
+      #                           for A_row in self.rows]
+
+      for i in range(0, self.size):
+        for j in range(0, self.size):
+          for k in range(0, self.size):
+            matrix.rows[i][j] = matrix.rows[i][j] + self.rows[i][k] * other.rows[k][j]
+
+      # for row in range(0, self.size):
+      #   for col in range(0, self.size):
+      #     matrix[row][col] = self[row][0] * other[0][col] + self[row][1] * other[1][col] + self[row][2] * other[2][col] + self[row][3] * other[3][col]
+
       return matrix
 
     if isinstance(other, Tuple):
-      tuple_params = []
-      for row in range(0, self.row_count):
-        tuple_params.append(self.rows[row][0] * other.x + self.rows[row][1] * other.y + self.rows[row][2] * other.z + self.rows[row][3] * other.w)
-      return Tuple(*tuple_params) #pylint: disable = no-value-for-parameter
+      x = self.rows[0][0] * other.x + self.rows[0][1] * other.y + self.rows[0][2] * other.z + self.rows[0][3] * other.w
+      y = self.rows[1][0] * other.x + self.rows[1][1] * other.y + self.rows[1][2] * other.z + self.rows[1][3] * other.w
+      z = self.rows[2][0] * other.x + self.rows[2][1] * other.y + self.rows[2][2] * other.z + self.rows[2][3] * other.w
+      w = self.rows[3][0] * other.x + self.rows[3][1] * other.y + self.rows[3][2] * other.z + self.rows[3][3] * other.w
+      return Tuple(x, y, z, w)
+      # tuple_params = []
+      # for row in range(0, self.size):
+      #   tuple_params.append(self.rows[row][0] * other.x + self.rows[row][1] * other.y + self.rows[row][2] * other.z + self.rows[row][3] * other.w)
+      # return Tuple(*tuple_params) #pylint: disable = no-value-for-parameter
 
     raise ValueError("Invalid type to multiply with matrix")
 
+  @cached_property
   def transpose(self) -> Matrix:
     """ Tranpose matrix """
-    matrix = Matrix.by_size(self.row_count, self.column_count)
-    for row in range(0, self.row_count):
-      for col in range(0, self.column_count):
+    #if self._transpose is not None:
+    #  return self._transpose
+    matrix = Matrix.by_size(self.size, self.size)
+    for row in range(0, self.size):
+      for col in range(0, self.size):
         matrix[col][row] = self[row][col]
+    #self._transpose = matrix
     return matrix
 
+  @cached_property
   def determinant(self) -> int:
     """ Get determinant """
-    if self.row_count == 2:
+    #if self._determinant is not None:
+    # return self._determinant
+    if self.size == 2:
       return self[0][0] * self[1][1] - self[0][1] * self[1][0]
 
     det = 0
-    for col in range(0, self.column_count):
+    for col in range(0, self.size):
       det += self[0][col] * self.cofactor(0, col)
+    #self._determinant = det
     return det
 
   def submatrix(self, remove_row: int, remove_col: int) -> Matrix:
     """ Get submatrix """
-    dest_matrix = Matrix.by_size(self.row_count - 1, self.column_count - 1)
+    dest_matrix = Matrix.by_size(self.size - 1, self.size - 1)
     dest_row = 0
     dest_col = 0
-    for row in range(0, self.row_count):
+    for row in range(0, self.size):
       if row == remove_row:
         continue
-      for col in range(0, self.column_count):
+      for col in range(0, self.size):
         if col == remove_col:
           continue
         dest_matrix[dest_row][dest_col] = self[row][col]
@@ -87,7 +108,7 @@ class Matrix:
 
   def minor(self, remove_row: int, remove_col: int) -> int:
     """ Return the minor """
-    return self.submatrix(remove_row, remove_col).determinant()
+    return self.submatrix(remove_row, remove_col).determinant
 
   def cofactor(self, remove_row: int, remove_col: int) -> int:
     """ Return the cofactor """
@@ -96,22 +117,23 @@ class Matrix:
       return -minor
     return minor
 
+  @cached_property
   def inverse(self) -> Matrix:
     """ Return the inverse """
-    if self._inverse is not None:
-      return self._inverse
+    # if self._inverse is not None:
+    #   return self._inverse
 
-    determinant = self.determinant()
+    determinant = self.determinant
     if determinant == 0:
       raise ValueError("Cannot invert matrix with determinant of 0")
 
-    matrix = Matrix.by_size(self.row_count, self.column_count)
-    for row in range(0, self.row_count):
-      for col in range(0, self.column_count):
+    matrix = Matrix.by_size(self.size, self.size)
+    for row in range(0, self.size):
+      for col in range(0, self.size):
         cofactor = self.cofactor(row, col)
         matrix[col][row] = cofactor / determinant
 
-    self._inverse = matrix
+    # self._inverse = matrix
     return matrix
 
   @classmethod

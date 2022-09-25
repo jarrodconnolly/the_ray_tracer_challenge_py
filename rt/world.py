@@ -20,7 +20,7 @@ class World:
   """
   def __init__(self) -> World:
     self.objects: list[Shape] = []
-    self.lights = []
+    self.lights: list[PointLight] = []
 
   def intersect(self, ray: Ray) -> Intersections:
     """ Intersect a ray with the world """
@@ -35,12 +35,14 @@ class World:
   def shade_hit(self, comps: Comps) -> Colour:
     """ shade function. get colour from all the lights """
     colour = Colour(0, 0, 0)
+    shadowed = self.is_shadowed(comps.over_point)
     for light in self.lights:
       colour += comps.object.material.lighting(
       light,
       comps.point,
       comps.eyev,
-      comps.normalv)
+      comps.normalv,
+      shadowed)
     return colour
 
   def colour_at(self, ray: Ray) -> Colour:
@@ -51,6 +53,20 @@ class World:
       return Colour(0, 0, 0)
     comps = hit.prepare_computations(ray)
     return self.shade_hit(comps)
+
+  def is_shadowed(self, p: Point) -> bool:
+    """ is the point in shadow """
+    v = self.lights[0].position - p
+    distance = v.magnitude()
+    direction = v.normalize()
+
+    r = Ray(p, direction)
+    intersections = self.intersect(r)
+
+    h = intersections.hit()
+    if h is not None and h.t < distance:
+      return True
+    return False
 
   @classmethod
   def DefaultWorld(cls) -> World:

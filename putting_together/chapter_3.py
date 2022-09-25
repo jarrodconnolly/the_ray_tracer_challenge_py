@@ -9,10 +9,10 @@ from rt.tuple import Point
 
 def run():
   """ main entrypoint """
-  canvas_size = 1024
+  canvas_size = 512
   clock_radius = canvas_size * (3/8)
   canvas = Canvas(canvas_size, canvas_size)
-  tick_colour = Colour(0, 0, 1)
+  tick_colour = Colour(1, 0, 0)
   start = Point(0, 1, 0)
 
   for hour in range(0, 12):

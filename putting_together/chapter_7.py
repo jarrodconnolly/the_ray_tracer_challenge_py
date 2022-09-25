@@ -52,7 +52,7 @@ def run():
   world.lights.append(PointLight(Point(-10, 10, -10), Colour(1, 1, 1)))
   world.objects = [floor, left_wall, right_wall, middle, right, left]
 
-  camera = Camera(800, 400, math.pi / 3)
+  camera = Camera(512, 512, math.pi / 3)
   camera.transform = Point(0, 1.5, -5).view_transform(Point(0, 1, 0), Vector(0, 1, 0))
 
   canvas = camera.render(world)

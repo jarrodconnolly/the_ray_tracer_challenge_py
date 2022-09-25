@@ -28,7 +28,7 @@ class Sphere(Shape):
 
   def intersect(self, ray: Ray) -> Intersections:
     """ Compute intersections of ray with sphere """
-    transformed_ray = ray.transform(self.transform.inverse())
+    transformed_ray = ray.transform(self.transform.inverse)
 
     sphere_to_ray = transformed_ray.origin - Point(0, 0, 0)
 
@@ -51,8 +51,8 @@ class Sphere(Shape):
 
   def normal_at(self, world_point: Point) -> Vector:
     """ return normal at a point """
-    object_point: Point = self.transform.inverse() * world_point
+    object_point: Point = self.transform.inverse * world_point
     object_normal: Vector = object_point - Point(0, 0, 0)
-    world_normal: Vector = self.transform.inverse().transpose() * object_normal
+    world_normal: Vector = self.transform.inverse.transpose * object_normal
     world_normal.w = 0
     return world_normal.normalize()
