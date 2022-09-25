@@ -23,9 +23,9 @@ class Tuple:
   def __eq__(self, other: Tuple):
     if isinstance(other, Tuple):
       if(
-        math.isclose(self.x, other.x, abs_tol=1e-05) and
-        math.isclose(self.y, other.y, abs_tol=1e-05) and
-        math.isclose(self.z, other.z, abs_tol=1e-05) and
+        math.isclose(self.x, other.x, abs_tol=rt.helpers.EPSILON) and
+        math.isclose(self.y, other.y, abs_tol=rt.helpers.EPSILON) and
+        math.isclose(self.z, other.z, abs_tol=rt.helpers.EPSILON) and
         self.w == other.w
       ):
         return True

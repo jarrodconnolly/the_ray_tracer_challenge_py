@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import math
 
+from rt.helpers import EPSILON
+
 
 class Colour:
   """
@@ -18,9 +20,9 @@ class Colour:
   def __eq__(self, other: Colour):
     if isinstance(other, Colour):
       if(
-        math.isclose(self.red, other.red, abs_tol=1e-05) and
-        math.isclose(self.green, other.green, abs_tol=1e-05) and
-        math.isclose(self.blue, other.blue, abs_tol=1e-05)
+        math.isclose(self.red, other.red, abs_tol=EPSILON) and
+        math.isclose(self.green, other.green, abs_tol=EPSILON) and
+        math.isclose(self.blue, other.blue, abs_tol=EPSILON)
       ):
         return True
     return False

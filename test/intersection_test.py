@@ -1,4 +1,5 @@
 """ Intersection Tests """
+from rt.helpers import EPSILON
 from rt.intersection import Intersection, Intersections
 from rt.matrix import Matrix
 from rt.ray import Ray
@@ -102,5 +103,5 @@ class TestIntersection:
     shape.transform = Matrix.translation(0, 0, 1)
     i = Intersection(5, shape)
     comps = i.prepare_computations(r)
-    assert comps.over_point.z < -1e-05 / 2
+    assert comps.over_point.z < -EPSILON / 2
     assert comps.point.z > comps.over_point.z

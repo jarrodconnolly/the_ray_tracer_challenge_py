@@ -6,6 +6,7 @@ from __future__ import annotations
 import math
 from functools import cached_property
 
+from rt.helpers import EPSILON
 from rt.tuple import Tuple
 
 
@@ -28,7 +29,7 @@ class Matrix:
       return False
     for i in range(0, self.size):
       for j in range(0, self.size):
-        if not math.isclose(self[i][j], other[i][j], abs_tol=1e-05):
+        if not math.isclose(self[i][j], other[i][j], abs_tol=EPSILON):
           return False
     return True
 

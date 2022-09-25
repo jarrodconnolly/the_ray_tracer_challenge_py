@@ -3,6 +3,7 @@ Intersection module
 """
 from __future__ import annotations
 
+from rt.helpers import EPSILON
 from rt.ray import Ray
 from rt.shape import Shape
 from rt.tuple import Point, Vector
@@ -40,7 +41,7 @@ class Intersection:
       comps.normalv = -comps.normalv
     else:
       comps.inside = False
-    comps.over_point = comps.point + comps.normalv * 1e-05
+    comps.over_point = comps.point + comps.normalv * EPSILON
     return comps
 
 class Intersections:

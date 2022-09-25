@@ -28,12 +28,12 @@ class Sphere(Shape):
 
   def intersect(self, ray: Ray) -> Intersections:
     """ Compute intersections of ray with sphere """
-    transformed_ray = ray.transform(self.transform.inverse)
+    local_ray = super().intersect(ray)
 
-    sphere_to_ray = transformed_ray.origin - Point(0, 0, 0)
+    sphere_to_ray = local_ray.origin - Point(0, 0, 0)
 
-    a = transformed_ray.direction.dot(transformed_ray.direction)
-    b = 2 * transformed_ray.direction.dot(sphere_to_ray)
+    a = local_ray.direction.dot(local_ray.direction)
+    b = 2 * local_ray.direction.dot(sphere_to_ray)
     c = sphere_to_ray.dot(sphere_to_ray) - 1
 
     discriminant = b**2 - 4 * a * c
@@ -49,10 +49,13 @@ class Sphere(Shape):
       Intersection(t2, self)
     )
 
-  def normal_at(self, world_point: Point) -> Vector:
-    """ return normal at a point """
-    object_point: Point = self.transform.inverse * world_point
-    object_normal: Vector = object_point - Point(0, 0, 0)
-    world_normal: Vector = self.transform.inverse.transpose * object_normal
-    world_normal.w = 0
-    return world_normal.normalize()
+  def local_normal_at(self, local_point: Point) -> Vector:
+    return local_point - Point(0, 0, 0)
+
+  # def normal_at(self, world_point: Point) -> Vector:
+  #   """ return normal at a point """
+  #   object_point: Point = self.transform.inverse * world_point
+  #   object_normal: Vector = object_point - Point(0, 0, 0)
+  #   world_normal: Vector = self.transform.inverse.transpose * object_normal
+  #   world_normal.w = 0
+  #   return world_normal.normalize()
