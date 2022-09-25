@@ -24,6 +24,9 @@ class Shape(metaclass=abc.ABCMeta):
     self.transform = transform
     self.material = material
 
+  def __eq__(self, o: Shape) -> bool:
+    return self.transform == o.transform and self.material == o.material
+
   def intersect(self, ray: Ray):
     """ base class intersect """
     return ray.transform(self.transform.inverse)
