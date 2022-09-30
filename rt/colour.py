@@ -50,3 +50,13 @@ class Colour:
       self.red * other,
       self.green * other,
       self.blue * other)
+
+  @classmethod
+  def Black(cls):
+    """ Black colour constant """
+    return Colour(0, 0, 0)
+
+  @classmethod
+  def White(cls):
+    """ White colour constant """
+    return Colour(1, 1, 1)

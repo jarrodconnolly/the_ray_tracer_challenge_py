@@ -4,12 +4,14 @@ Shape module
 from __future__ import annotations
 
 import abc
+from typing import TYPE_CHECKING
 
 from rt.material import Material
 from rt.matrix import Matrix
-from rt.ray import Ray
 from rt.tuple import Point, Vector
 
+if TYPE_CHECKING:
+  from rt.ray import Ray
 
 class Shape(metaclass=abc.ABCMeta):
   """ base class for shapes """

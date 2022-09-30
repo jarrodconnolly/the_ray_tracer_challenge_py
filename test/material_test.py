@@ -4,6 +4,8 @@ from math import sqrt
 from rt.colour import Colour
 from rt.light import PointLight
 from rt.material import Material
+from rt.sphere import Sphere
+from rt.pattern import Stripe
 from rt.tuple import Point, Vector
 
 
@@ -26,7 +28,7 @@ class TestMaterial:
     eyev = Vector(0, 0, -1)
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 0, -10), Colour(1, 1, 1))
-    result = m.lighting(light, position, eyev, normalv)
+    result = m.lighting(Sphere(), light, position, eyev, normalv)
     assert result == Colour(1.9, 1.9, 1.9)
 
   def test_lighting_eye_between_light_surface_45(self):
@@ -36,7 +38,7 @@ class TestMaterial:
     eyev = Vector(0, sqrt(2) / 2, -sqrt(2) / 2)
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 0, -10), Colour(1, 1, 1))
-    result = m.lighting(light, position, eyev, normalv)
+    result = m.lighting(Sphere(), light, position, eyev, normalv)
     assert result == Colour(1.0, 1.0, 1.0)
 
   def test_lighting_eye_opposite_surface_light_45(self):
@@ -46,7 +48,7 @@ class TestMaterial:
     eyev = Vector(0, 0, -1)
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 10, -10), Colour(1, 1, 1))
-    result = m.lighting(light, position, eyev, normalv)
+    result = m.lighting(Sphere(), light, position, eyev, normalv)
     assert result == Colour(0.7364, 0.7364, 0.7364)
 
   def test_lighting_eye_path_reflection_vector(self):
@@ -56,7 +58,7 @@ class TestMaterial:
     eyev = Vector(0, -sqrt(2) / 2, -sqrt(2) / 2)
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 10, -10), Colour(1, 1, 1))
-    result = m.lighting(light, position, eyev, normalv)
+    result = m.lighting(Sphere(), light, position, eyev, normalv)
     assert result == Colour(1.6364, 1.6364, 1.6364)
 
   def test_lighting_behind_surface(self):
@@ -66,7 +68,7 @@ class TestMaterial:
     eyev = Vector(0, 0, -1)
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 0, 10), Colour(1, 1, 1))
-    result = m.lighting(light, position, eyev, normalv)
+    result = m.lighting(Sphere(), light, position, eyev, normalv)
     assert result == Colour(0.1, 0.1, 0.1)
 
   def test_lighting_surface_shadow(self):
@@ -77,5 +79,20 @@ class TestMaterial:
     normalv = Vector(0, 0, -1)
     light = PointLight(Point(0, 0, -10), Colour(1, 1, 1))
     in_shadow = True
-    result = m.lighting(light, position, eyev, normalv, in_shadow)
+    result = m.lighting(Sphere(), light, position, eyev, normalv, in_shadow)
     assert result == Colour(0.1, 0.1, 0.1)
+
+  def test_lighting_pattern(self):
+    """ Lighting with a pattern applied """
+    m = Material()
+    m.pattern = Stripe(Colour(1, 1, 1), Colour(0, 0, 0))
+    m.ambient = 1
+    m.diffuse = 0
+    m.specular = 0
+    eyev = Vector(0, 0, -1)
+    normalv = Vector(0, 0, -1)
+    light = PointLight(Point(0, 0, -10), Colour(1, 1, 1))
+    c1 = m.lighting(Sphere(), light, Point(0.9, 0, 0), eyev, normalv)
+    c2 = m.lighting(Sphere(), light, Point(1.1, 0, 0), eyev, normalv)
+    assert c1 == Colour(1, 1, 1)
+    assert c2 == Colour(0, 0, 0)
