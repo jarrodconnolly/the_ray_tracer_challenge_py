@@ -28,3 +28,6 @@ https://pragprog.com/titles/jbtracer/the-ray-tracer-challenge/
 
 ## Chapter 9
 ![chapter_9](https://user-images.githubusercontent.com/392577/192133933-12883554-b79a-4772-8ed4-ada9c92020e3.png)
+
+## Chapter 10
+![image](https://user-images.githubusercontent.com/392577/193199115-8e18f848-8f12-4c0a-b53d-d2db681fbbe9.png)
