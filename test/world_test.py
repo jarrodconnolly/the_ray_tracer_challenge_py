@@ -1,9 +1,12 @@
 """ World Tests """
+import math
+
 from rt.colour import Colour
 from rt.intersection import Intersection
 from rt.light import PointLight
 from rt.material import Material
 from rt.matrix import Matrix
+from rt.plane import Plane
 from rt.ray import Ray
 from rt.sphere import Sphere
 from rt.tuple import Point, Vector
@@ -133,3 +136,71 @@ class TestWorld:
     c = w.shade_hit(comps)
     print(f"Colour: {c.red} {c.green} {c.blue}")
     assert c == Colour(0.1, 0.1, 0.1)
+
+  def test_reflected_nonreflective_material(self):
+    """ The reflected color for a nonreflective material """
+    w = World.DefaultWorld()
+    r = Ray(Point(0, 0, 0), Vector(0, 0, 1))
+    shape = w.objects[1]
+    shape.material.ambient = 1
+    i = Intersection(1, shape)
+    comps = i.prepare_computations(r)
+    colour = w.reflected_colour(comps)
+    assert colour == Colour(0, 0, 0)
+
+  def test_reflected_reflective_material(self):
+    """ The reflected color for a reflective material """
+    w = World.DefaultWorld()
+    shape = Plane()
+    shape.material.reflective = 0.5
+    shape.transform = Matrix.translation(0, -1, 0)
+    w.objects.append(shape)
+    r = Ray(Point(0, 0, -3), Vector(0, -math.sqrt(2) / 2, math.sqrt(2) / 2))
+    i = Intersection(math.sqrt(2), shape)
+    comps = i.prepare_computations(r)
+    colour = w.reflected_colour(comps)
+    assert colour == Colour(0.19032, 0.2379, 0.14274)
+
+  def test_shade_hit_reflective_material(self):
+    """ shade_hit() with a reflective material """
+    w = World.DefaultWorld()
+    shape = Plane()
+    shape.material.reflective = 0.5
+    shape.transform = Matrix.translation(0, -1, 0)
+    w.objects.append(shape)
+    r = Ray(Point(0, 0, -3), Vector(0, -math.sqrt(2) / 2, math.sqrt(2) / 2))
+    i = Intersection(math.sqrt(2), shape)
+    comps = i.prepare_computations(r)
+    colour = w.shade_hit(comps)
+    assert colour == Colour(0.87677, 0.92436, 0.82918)
+
+  def test_mutually_reflective(self):
+    """ color_at() with mutually reflective surfaces """
+    w = World()
+    w.lights.append(PointLight(Point(0, 0, 0), Colour(1, 1, 1)))
+
+    lower = Plane()
+    lower.material.reflective = 1
+    lower.transform = Matrix.translation(0, -1, 0)
+    w.objects.append(lower)
+
+    upper = Plane()
+    upper.material.reflective = 1
+    upper.transform = Matrix.translation(0, 1, 0)
+    w.objects.append(upper)
+
+    r = Ray(Point(0, 0, 0), Vector(0, 1, 0))
+    w.colour_at(r) # calling to ensure this does not recurse infinitely
+
+  def test_reflection_maximum_recursion(self):
+    """ The reflected color at the maximum recursive depth """
+    w = World()
+    shape = Plane()
+    shape.material.reflective = 0.5
+    shape.transform = Matrix.translation(0, -1, 0)
+    w.objects.append(shape)
+    r = Ray(Point(0, 0, -3), Vector(0, -math.sqrt(2) / 2, math.sqrt(2) / 2))
+    i = Intersection(math.sqrt(2), shape)
+    comps = i.prepare_computations(r)
+    colour = w.reflected_colour(comps, 0)
+    assert colour == Colour(0, 0, 0)

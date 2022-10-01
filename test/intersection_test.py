@@ -1,7 +1,9 @@
 """ Intersection Tests """
+from math import sqrt
 from rt.helpers import EPSILON
 from rt.intersection import Intersection, Intersections
 from rt.matrix import Matrix
+from rt.plane import Plane
 from rt.ray import Ray
 from rt.sphere import Sphere
 from rt.tuple import Point, Vector
@@ -105,3 +107,11 @@ class TestIntersection:
     comps = i.prepare_computations(r)
     assert comps.over_point.z < -EPSILON / 2
     assert comps.point.z > comps.over_point.z
+
+  def test_precompute_reflection_vector(self):
+    """ Precomputing the reflection vector """
+    shape = Plane()
+    r = Ray(Point(0, 1, -1), Vector(0, -sqrt(2) / 2, sqrt(2) / 2))
+    i = Intersection(sqrt(2), shape)
+    comps = i.prepare_computations(r)
+    assert comps.reflectv == Vector(0, sqrt(2) / 2, sqrt(2) / 2)

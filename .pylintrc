@@ -8,10 +8,11 @@ good-names=x,y,z,w,i,j,t,xs
 max-line-length=160
 
 [MESSAGES CONTROL]
-disable=C0103, R0801, R0903, R0904, R0913, R0914, R0916
+disable=C0103, R0801, R0902, R0903, R0904, R0913, R0914, R0916
 
 # C0103 (invalid-name)
 # R0801 (duplicate-code)
+# R0902 (too-many-instance-attributes)
 # R0903 (too-few-public-methods)
 # R0904 (too-many-public-methods)
 # R0913 (too-many-arguments)

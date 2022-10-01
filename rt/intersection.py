@@ -19,6 +19,7 @@ class Comps:
     self.normalv: Vector
     self.inside: bool
     self.over_point: Point
+    self.reflectv: Vector
 
 class Intersection:
   """
@@ -36,12 +37,15 @@ class Intersection:
     comps.point = ray.position(comps.t)
     comps.eyev = -ray.direction
     comps.normalv = comps.object.normal_at(comps.point)
+
     if comps.normalv.dot(comps.eyev) < 0:
       comps.inside = True
       comps.normalv = -comps.normalv
     else:
       comps.inside = False
+
     comps.over_point = comps.point + comps.normalv * EPSILON
+    comps.reflectv = ray.direction.reflect(comps.normalv)
     return comps
 
 class Intersections:

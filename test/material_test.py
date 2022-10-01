@@ -96,3 +96,8 @@ class TestMaterial:
     c2 = m.lighting(Sphere(), light, Point(1.1, 0, 0), eyev, normalv)
     assert c1 == Colour(1, 1, 1)
     assert c2 == Colour(0, 0, 0)
+
+  def test_default_material_reflective(self):
+    """ Reflectivity for the default material """
+    m = Material()
+    assert m.reflective == 0.0

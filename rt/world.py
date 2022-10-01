@@ -32,28 +32,46 @@ class World:
 
     return intersections
 
-  def shade_hit(self, comps: Comps) -> Colour:
+  def reflected_colour(self, comps: Comps, remaining: int = 5) -> Colour:
+    """ return the reflected colour """
+    if remaining <= 0:
+      return Colour(0, 0, 0)
+
+    if comps.object.material.reflective == 0:
+      return Colour(0, 0, 0)
+
+    reflected_ray = Ray(comps.over_point, comps.reflectv)
+    remaining -= 1
+    colour = self.colour_at(reflected_ray, remaining)
+
+    return colour * comps.object.material.reflective
+
+  def shade_hit(self, comps: Comps, remaining: int = 5) -> Colour:
     """ shade function. get colour from all the lights """
     colour = Colour(0, 0, 0)
     shadowed = self.is_shadowed(comps.over_point)
     for light in self.lights:
-      colour += comps.object.material.lighting(
+      surface = comps.object.material.lighting(
         comps.object,
         light,
         comps.point,
         comps.eyev,
         comps.normalv,
         shadowed)
+
+      reflected = self.reflected_colour(comps, remaining)
+      colour += (surface + reflected)
+
     return colour
 
-  def colour_at(self, ray: Ray) -> Colour:
+  def colour_at(self, ray: Ray, remaining: int = 5) -> Colour:
     """ get colour from ray at world intersection """
     i = self.intersect(ray)
     hit: Intersection = i.hit()
     if hit is None:
       return Colour(0, 0, 0)
     comps = hit.prepare_computations(ray)
-    return self.shade_hit(comps)
+    return self.shade_hit(comps, remaining)
 
   def is_shadowed(self, p: Point) -> bool:
     """ is the point in shadow """
