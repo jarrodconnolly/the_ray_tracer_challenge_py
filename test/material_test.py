@@ -101,3 +101,9 @@ class TestMaterial:
     """ Reflectivity for the default material """
     m = Material()
     assert m.reflective == 0.0
+
+  def test_default_material_transparency_refractive(self):
+    """ Transparency and Refractive Index for the default material """
+    m = Material()
+    assert m.transparency == 0.0
+    assert m.refractive_index == 1.0

@@ -47,6 +47,11 @@ class Camera:
 
     return Ray(origin, direction)
 
+  def single_pixel(self, world: World, x: int, y: int) -> None:
+    """ debug a single pixel """
+    ray = self.ray_for_pixel(x, y)
+    world.colour_at(ray)
+
   def render(self, world: World) -> Canvas:
     """ render the image """
     image = Canvas(self.hsize, self.vsize)

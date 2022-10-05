@@ -48,3 +48,10 @@ class Sphere(Shape):
   #   world_normal: Vector = self.transform.inverse.transpose * object_normal
   #   world_normal.w = 0
   #   return world_normal.normalize()
+
+def UnitTestGlassSphere() -> Sphere:
+  """ helper shpere for unit tests """
+  s = Sphere()
+  s.material.transparency = 1.0
+  s.material.refractive_index = 1.5
+  return s

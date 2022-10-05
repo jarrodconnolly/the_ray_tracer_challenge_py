@@ -27,6 +27,9 @@ class Colour:
         return True
     return False
 
+  def __str__(self) -> str:
+    return f"v({round(self.red, 4):.4f},{round(self.green, 4):.4f},{round(self.blue, 4):.4f})"
+
   def __add__(self, other: Colour):
     return Colour(
       self.red + other.red,

@@ -25,6 +25,8 @@ class Material:
     specular: float = 0.9,
     shininess: float = 200.0,
     reflective: float = 0.0,
+    transparency: float = 0.0,
+    refractive_index: float = 1.0,
     pattern: Pattern = None) -> Material:
     self.colour = colour
     self.ambient = ambient
@@ -32,6 +34,8 @@ class Material:
     self.specular = specular
     self.shininess = shininess
     self.reflective = reflective
+    self.transparency = transparency
+    self.refractive_index = refractive_index
     self.pattern = pattern
 
   def __eq__(self, other: Material):
@@ -43,6 +47,8 @@ class Material:
         self.specular == other.specular and
         self.shininess == other.shininess and
         self.reflective == other.reflective and
+        self.transparency == other.transparency and
+        self.refractive_index == other.refractive_index and
         self.pattern == other.pattern
       ):
         return True

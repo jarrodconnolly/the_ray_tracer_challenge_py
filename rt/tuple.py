@@ -20,6 +20,9 @@ class Tuple:
     self.z = z
     self.w = w
 
+  def __str__(self) -> str:
+    return f"{'p' if self.w == 1 else 'v'}({round(self.x, 4):.4f},{round(self.y, 4):.4f},{round(self.z, 4):.4f})"
+
   def __eq__(self, other: Tuple):
     if isinstance(other, Tuple):
       if(

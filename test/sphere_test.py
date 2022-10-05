@@ -4,7 +4,7 @@ from math import pi, sqrt
 from rt.material import Material
 from rt.matrix import Matrix
 from rt.ray import Ray
-from rt.sphere import Sphere
+from rt.sphere import Sphere, UnitTestGlassSphere
 from rt.tuple import Point, Vector
 
 
@@ -148,3 +148,10 @@ class TestSphere:
     m.ambient = 1
     s.material = m
     assert s.material == m
+
+  def test_sphere_helper(self):
+    """ A helper for producing a sphere with a glassy material """
+    s = UnitTestGlassSphere()
+    assert s.transform == Matrix.identity()
+    assert s.material.transparency == 1.0
+    assert s.material.refractive_index == 1.5

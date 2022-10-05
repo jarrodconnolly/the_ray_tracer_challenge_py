@@ -98,7 +98,7 @@ class Checker(Pattern):
         return self.a
       return self.b
 
-    in_check = (math.floor(p.x) + math.floor(p.y) + math.floor(p.z)) % 2 == 0
+    in_check = math.fmod(math.floor(p.x) + math.floor(p.y) + math.floor(p.z), 2)  == 0
     if in_check is True:
       return self.a
     return self.b
