@@ -37,3 +37,6 @@ https://pragprog.com/titles/jbtracer/the-ray-tracer-challenge/
 
 ## Chapter 11 - Refraction
 ![image](https://user-images.githubusercontent.com/392577/193986536-ced561ff-fc72-4e19-94c2-6962083ea6f7.png)
+
+## Chapter 12 - Cubes
+![image](https://user-images.githubusercontent.com/392577/194226993-0ceed455-fb44-4821-92ab-fb4b94d51217.png)
