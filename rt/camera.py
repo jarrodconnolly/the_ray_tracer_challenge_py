@@ -4,6 +4,7 @@ Camera module
 from __future__ import annotations
 
 import math
+from multiprocessing import Pool
 
 #import rt
 from rt.canvas import Canvas
@@ -12,6 +13,20 @@ from rt.ray import Ray
 from rt.tuple import Point
 from rt.world import World
 
+
+def pixel_render(x, y, camera, world, image):
+  ray = camera.ray_for_pixel(x, y)
+  colour = world.colour_at(ray)
+  image.write_pixel(x, y, colour)
+
+def pixel_render_row(x_max, y, camera, world):
+  row_data = []
+  for x in range(0,x_max):
+    ray = camera.ray_for_pixel(x, y)
+    colour = world.colour_at(ray)
+    row_data.append(colour)
+    #image.write_pixel(x, y, colour)
+  return row_data
 
 class Camera:
   """
@@ -51,6 +66,19 @@ class Camera:
     """ debug a single pixel """
     ray = self.ray_for_pixel(x, y)
     world.colour_at(ray)
+
+
+
+  def render_parallel(self, world: World) -> Canvas:
+    """ parallel render """
+    image = Canvas(self.hsize, self.vsize)
+
+    #coordinates = ((x, y, self, world, image) for x in range(self.hsize) for y in range(self.vsize))
+    coordinates = ((self.hsize, y, self, world) for y in range(self.vsize))
+    with Pool() as pool:
+      row_data = pool.starmap(pixel_render_row, coordinates)
+
+    return image
 
   def render(self, world: World) -> Canvas:
     """ render the image """

@@ -1,4 +1,4 @@
-""" Putting It Together - Chapter 7 """
+""" Putting It Together - Chapter 11-Refraction """
 from rt.camera import Camera
 from rt.colour import Colour
 from rt.light import PointLight
@@ -47,6 +47,7 @@ def run():
   camera = Camera(512, 512, 0.45)
   camera.transform = Point(0, 0, -5).view_transform(Point(0, 0, 0), Vector(0, 1, 0))
 
+  #canvas = camera.render_parallel(world)
   canvas = camera.render(world)
   #camera.single_pixel(world, 125, 125)
 

@@ -1,4 +1,4 @@
-""" Putting It Together - Chapter 7 """
+""" Putting It Together - Chapter 9 """
 
 import math
 

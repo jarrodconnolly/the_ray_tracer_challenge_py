@@ -1,4 +1,4 @@
-""" Putting It Together - Chapter 4 """
+""" Putting It Together - Chapter 5 """
 from rt.canvas import Canvas
 from rt.colour import Colour
 from rt.light import PointLight
