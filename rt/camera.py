@@ -15,11 +15,13 @@ from rt.world import World
 
 
 def pixel_render(x, y, camera, world, image):
+  """ render a single pixel for parallel testing """
   ray = camera.ray_for_pixel(x, y)
   colour = world.colour_at(ray)
   image.write_pixel(x, y, colour)
 
 def pixel_render_row(x_max, y, camera, world):
+  """ render a single row for parallel testing """
   row_data = []
   for x in range(0,x_max):
     ray = camera.ray_for_pixel(x, y)
@@ -76,7 +78,8 @@ class Camera:
     #coordinates = ((x, y, self, world, image) for x in range(self.hsize) for y in range(self.vsize))
     coordinates = ((self.hsize, y, self, world) for y in range(self.vsize))
     with Pool() as pool:
-      row_data = pool.starmap(pixel_render_row, coordinates)
+      pool.starmap(pixel_render_row, coordinates)
+      # row_data = pool.starmap(pixel_render_row, coordinates)
 
     return image
 
@@ -89,5 +92,17 @@ class Camera:
         ray = self.ray_for_pixel(x, y)
         colour = world.colour_at(ray)
         image.write_pixel(x, y, colour)
+
+    return image
+
+  def render_png(self, world: World) -> Canvas:
+    """ render the PNG image """
+    image = Canvas(self.hsize, self.vsize)
+
+    for y in range(0, self.vsize):
+      for x in range(0, self.hsize):
+        ray = self.ray_for_pixel(x, y)
+        colour = world.colour_at(ray)
+        image.write_pixel_png(x, y, colour)
 
     return image

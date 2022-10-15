@@ -3,8 +3,6 @@ Cube module
 """
 from __future__ import annotations
 
-import math
-
 from rt.helpers import EPSILON
 from rt.intersection import Intersection, Intersections
 from rt.ray import Ray
@@ -20,7 +18,7 @@ class Cube(Shape):
     maxc = max(abs(local_point.x), abs(local_point.y), abs(local_point.z))
     if maxc == abs(local_point.x):
       return Vector(local_point.x, 0, 0)
-    elif maxc == abs(local_point.y):
+    if maxc == abs(local_point.y):
       return Vector(0, local_point.y, 0)
     return Vector(0, 0, local_point.z)
 

@@ -51,10 +51,10 @@ def run():
   camera = Camera(512, 512, math.pi / 3)
   camera.transform = Point(0, 6, -10).view_transform(Point(0, 1, 0), Vector(0, 1, 0))
 
-  canvas = camera.render(world)
+  canvas = camera.render_png(world)
 
-  with open("chapter_12.ppm", "w", encoding="utf-8") as ppm_file:
-    canvas.canvas_to_ppm(ppm_file)
+  with open("chapter_12.png", "wb") as ppm_file:
+    canvas.canvas_to_png(ppm_file)
 
 if __name__ == '__main__':
   run()
