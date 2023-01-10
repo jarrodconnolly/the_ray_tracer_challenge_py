@@ -2,6 +2,7 @@
 import math
 
 from rt.matrix import Matrix
+from rt.transformations import Transformations
 from rt.tuple import Point, Vector
 
 
@@ -150,7 +151,7 @@ class TestTransformations:
     eye_from = Point(0, 0, 0)
     to = Point(0, 0, -1)
     up = Vector(0, 1, 0)
-    t = eye_from.view_transform(to, up)
+    t = Transformations.view_transform(eye_from, to, up)
     assert t == Matrix.identity()
 
   def test_view_transformation_matrix_positive_z(self):
@@ -158,7 +159,7 @@ class TestTransformations:
     eye_from = Point(0, 0, 0)
     to = Point(0, 0, 1)
     up = Vector(0, 1, 0)
-    t = eye_from.view_transform(to, up)
+    t = Transformations.view_transform(eye_from, to, up)
     assert t == Matrix.scaling(-1, 1, -1)
 
   def test_view_transformation_moves_world(self):
@@ -166,7 +167,7 @@ class TestTransformations:
     eye_from = Point(0, 0, 8)
     to = Point(0, 0, 0)
     up = Vector(0, 1, 0)
-    t = eye_from.view_transform(to, up)
+    t = Transformations.view_transform(eye_from, to, up)
     assert t == Matrix.translation(0, 0, -8)
 
   def test_view_transformation_arbitrary(self):
@@ -174,7 +175,7 @@ class TestTransformations:
     eye_from = Point(1, 3, 2)
     to = Point(4, -2, 8)
     up = Vector(1, 1, 0)
-    t = eye_from.view_transform(to, up)
+    t = Transformations.view_transform(eye_from, to, up)
     assert t == Matrix([
       [-0.50709, 0.50709, 0.67612, -2.36643],
       [0.76772, 0.60609, 0.12122, -2.82843],

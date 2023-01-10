@@ -34,7 +34,7 @@ class Camera:
   """
   Camera
   """
-  def __init__(self, hsize: int, vsize: int, field_of_view: float) -> Camera:
+  def __init__(self, hsize: int, vsize: int, field_of_view: float) -> None:
     self.hsize = hsize
     self.vsize = vsize
     self.field_of_view = field_of_view

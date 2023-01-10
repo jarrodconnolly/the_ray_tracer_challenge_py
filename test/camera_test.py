@@ -5,6 +5,7 @@ import math
 from rt.camera import Camera
 from rt.colour import Colour
 from rt.matrix import Matrix
+from rt.transformations import Transformations
 from rt.tuple import Point, Vector
 from rt.world import World
 
@@ -59,6 +60,6 @@ class TestCamera:
     from_p = Point(0, 0, -5)
     to = Point(0, 0, 0)
     up = Vector(0, 1, 0)
-    c.transform = from_p.view_transform(to, up)
+    c.transform = Transformations.view_transform(from_p, to, up)
     image = c.render(w)
     assert image.pixel_at(5, 5) == Colour(0.38066, 0.47583, 0.2855)
