@@ -9,6 +9,7 @@ from rt.matrix import Matrix
 from rt.pattern import Checker, Gradient, Ring, Stripe
 from rt.plane import Plane
 from rt.sphere import Sphere
+from rt.transformations import Transformations
 from rt.tuple import Point, Vector
 from rt.world import World
 
@@ -52,7 +53,7 @@ def run():
   world.objects = [floor, wall, middle, right, left]
 
   camera = Camera(512, 512, math.pi / 3)
-  camera.transform = Point(0, 1.5, -5).view_transform(Point(0, 1, 0), Vector(0, 1, 0))
+  camera.transform = Transformations.view_transform(Point(0, 1.5, -5), Point(0, 1, 0), Vector(0, 1, 0))
 
   canvas = camera.render(world)
 

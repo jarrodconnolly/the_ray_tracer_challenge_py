@@ -5,9 +5,10 @@ from __future__ import annotations
 
 import binascii
 import zlib
-from io import StringIO
+from io import StringIO, TextIOWrapper
 from typing import BinaryIO
 
+#import rt
 from rt.colour import Colour
 
 
@@ -15,7 +16,7 @@ class Canvas:
   """
   Canvas
   """
-  def __init__(self, width: int, height: int) -> Canvas:
+  def __init__(self, width: int, height: int) -> None:
     self.width = width
     self.height = height
     colour = Colour(0, 0, 0)
@@ -82,7 +83,7 @@ class Canvas:
     # IEND
     write_chunk("IEND", bytes())
 
-  def canvas_to_ppm(self, output_stream: StringIO) -> None:
+  def canvas_to_ppm(self, output_stream: StringIO|TextIOWrapper) -> None:
     """ output canvas in PPM format """
     output_stream.write("P3\n")
     output_stream.write(f"{self.width} {self.height}\n")
@@ -91,7 +92,7 @@ class Canvas:
     row_counter = 0
     row_max = 70
 
-    def write_value(value: float, row_counter: int) -> None:
+    def write_value(value: float, row_counter: int) -> int:
       value = max(min(1, value), 0)
       value = round(value * 255)
       value_str = str(value)

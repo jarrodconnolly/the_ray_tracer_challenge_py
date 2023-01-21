@@ -6,6 +6,7 @@ from rt.matrix import Matrix
 from rt.pattern import Checker
 from rt.plane import Plane
 from rt.sphere import Sphere
+from rt.transformations import Transformations
 from rt.tuple import Point, Vector
 from rt.world import World
 
@@ -45,8 +46,7 @@ def run():
   world.objects = [wall, bigger, smaller]
 
   camera = Camera(512, 512, 0.45)
-  camera.transform = Point(0, 0, -5).view_transform(Point(0, 0, 0), Vector(0, 1, 0))
-
+  camera.transform = Transformations.view_transform(Point(0, 0, -5), Point(0, 0, 0), Vector(0, 1, 0))
   #canvas = camera.render_parallel(world)
   canvas = camera.render(world)
   #camera.single_pixel(world, 125, 125)

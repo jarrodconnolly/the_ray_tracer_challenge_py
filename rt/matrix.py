@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import math
 from functools import cached_property
+from typing import overload
 
 from rt.helpers import EPSILON
 from rt.tuple import Tuple
@@ -14,7 +15,7 @@ class Matrix:
   """
   Matrix
   """
-  def __init__(self, rows: list) -> Matrix:
+  def __init__(self, rows: list) -> None:
     self.rows = rows
     self.size = len(rows)
     # self._inverse: Matrix
@@ -32,6 +33,14 @@ class Matrix:
         if not math.isclose(self[i][j], other[i][j], abs_tol=EPSILON):
           return False
     return True
+
+  @overload
+  def __mul__(self, other: Tuple) -> Tuple:
+    ...
+
+  @overload
+  def __mul__(self, other: Matrix) -> Matrix:
+    ...
 
   def __mul__(self, other: Matrix|Tuple) -> Matrix|Tuple:
     if isinstance(other, Matrix):

@@ -5,8 +5,7 @@ from __future__ import annotations
 
 import math
 
-#from rt.matrix import Matrix
-import rt
+from rt.helpers import EPSILON
 
 
 class Tuple:
@@ -14,7 +13,7 @@ class Tuple:
   Tuple holds x y z w for points and vectors.
   """
   __slots__ = 'x', 'y', 'z', 'w'
-  def __init__(self, x: float, y: float, z: float, w: int) -> Tuple:
+  def __init__(self, x: float, y: float, z: float, w: float) -> None:
     self.x = x
     self.y = y
     self.z = z
@@ -26,9 +25,9 @@ class Tuple:
   def __eq__(self, other: Tuple):
     if isinstance(other, Tuple):
       if(
-        math.isclose(self.x, other.x, abs_tol=rt.helpers.EPSILON) and
-        math.isclose(self.y, other.y, abs_tol=rt.helpers.EPSILON) and
-        math.isclose(self.z, other.z, abs_tol=rt.helpers.EPSILON) and
+        math.isclose(self.x, other.x, abs_tol=EPSILON) and
+        math.isclose(self.y, other.y, abs_tol=EPSILON) and
+        math.isclose(self.z, other.z, abs_tol=EPSILON) and
         self.w == other.w
       ):
         return True
@@ -69,18 +68,18 @@ class Tuple:
     """ return the vector refleced off the normal """
     return self - normal * 2 * self.dot(normal)
 
-  def dot(self, tuple_b: Tuple) -> Tuple:
+  def dot(self, tuple_b: Tuple) -> float:
     """ Helper to compute the dot product """
     return (self.x * tuple_b.x) + (self.y * tuple_b.y) + (self.z * tuple_b.z) + (self.w * tuple_b.w)
 
-  def cross(self, vector_b: Tuple) -> Tuple:
+  def cross(self, vector_b: Tuple) -> Vector:
     """ Helper to compute cross product """
     return Vector(
       self.y * vector_b.z - self.z * vector_b.y,
       self.z * vector_b.x - self.x * vector_b.z,
       self.x * vector_b.y - self.y * vector_b.x)
 
-  def magnitude(self) -> Tuple:
+  def magnitude(self) -> float:
     """ return the magniture of the vector """
     return math.sqrt(self.x ** 2 + self.y ** 2 + self.z ** 2 + self.w ** 2)
 
@@ -95,24 +94,24 @@ class Tuple:
 
 class Point(Tuple):
   """ Point specialization of Tuple """
-  def __init__(self, x: float, y: float, z: float) -> Tuple:
+  def __init__(self, x: float, y: float, z: float) -> None:
     super().__init__(x, y, z, 1)
 
-  def view_transform(self, to: Point, up: Vector) -> rt.matrix.Matrix:
-    """ compute the view transform """
-    forward = (to - self).normalize()
-    upn = up.normalize()
-    left = forward.cross(upn)
-    true_up = left.cross(forward)
-    orientation = rt.matrix.Matrix([
-      [left.x, left.y, left.z, 0],
-      [true_up.x, true_up.y, true_up.z, 0],
-      [-forward.x, -forward.y, -forward.z, 0],
-      [0, 0, 0, 1]
-      ])
-    return orientation * rt.matrix.Matrix.translation(-self.x, -self.y, -self.z)
+  # def view_transform(self, to: Point, up: Vector) -> rt.matrix.Matrix:
+  #   """ compute the view transform """
+  #   forward = (to - self).normalize()
+  #   upn = up.normalize()
+  #   left = forward.cross(upn)
+  #   true_up = left.cross(forward)
+  #   orientation = rt.matrix.Matrix([
+  #     [left.x, left.y, left.z, 0],
+  #     [true_up.x, true_up.y, true_up.z, 0],
+  #     [-forward.x, -forward.y, -forward.z, 0],
+  #     [0, 0, 0, 1]
+  #     ])
+  #   return orientation * rt.matrix.Matrix.translation(-self.x, -self.y, -self.z)
 
 class Vector(Tuple):
   """ Vector specialization of Tuple """
-  def __init__(self, x: float, y: float, z: float) -> Tuple:
+  def __init__(self, x: float, y: float, z: float) -> None:
     super().__init__(x, y, z, 0)
