@@ -83,14 +83,13 @@ class Tuple:
     """ return the magniture of the vector """
     return math.sqrt(self.x ** 2 + self.y ** 2 + self.z ** 2 + self.w ** 2)
 
-  def normalize(self) -> Tuple:
+  def normalize(self) -> Vector:
     """ return the normal of the vector """
     vector_magnitude = self.magnitude()
-    return Tuple(
+    return Vector(
       self.x / vector_magnitude,
       self.y / vector_magnitude,
-      self.z / vector_magnitude,
-      self.w / vector_magnitude)
+      self.z / vector_magnitude)
 
 class Point(Tuple):
   """ Point specialization of Tuple """
